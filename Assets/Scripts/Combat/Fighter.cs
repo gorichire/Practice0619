@@ -12,7 +12,7 @@ using Newtonsoft.Json.Linq;
 
 namespace RPG.Combat
 {
-    public class Fighter : MonoBehaviour, IAction , ISaveable , IModifierProvider /*, IJsonSaveable*/
+    public class Fighter : MonoBehaviour, IAction /*, ISaveable*/ , IModifierProvider, IJsonSaveable
     {
         [SerializeField] float timeBetweenAttacks = 1f;
         [SerializeField] Transform rightHandTransform  = null;
@@ -248,14 +248,39 @@ namespace RPG.Combat
             return currentWeaponConfig.GetDamage() + GetComponent<BaseStats>().GetStat(Stat.Damage);
         }
 
-        public object CaptureState()
+        //public object CaptureState()
+        //{
+        //    return currentWeaponConfig.name;
+        //}
+
+        //public void RestoreState(object state)
+        //{
+        //    string weaponName = (string)state;
+
+        //    if (string.IsNullOrEmpty(weaponName))
+        //    {
+        //        EquipWeapon(defaultWeapon);
+        //        return;
+        //    }
+
+        //    WeaponConfig weapon = UnityEngine.Resources.Load<WeaponConfig>(weaponName);
+
+        //    if (weapon == null)
+        //    {
+        //        EquipWeapon(defaultWeapon);
+        //        return;
+        //    }
+
+        //    EquipWeapon(weapon);
+        //}
+        public JToken CaptureAsJToken()
         {
-            return currentWeaponConfig.name;
+            return JToken.FromObject(currentWeaponConfig ? currentWeaponConfig.name : "");
         }
 
-        public void RestoreState(object state)
+        public void RestoreFromJToken(JToken state)
         {
-            string weaponName = (string)state;
+            string weaponName = state?.ToObject<string>() ?? string.Empty;
 
             if (string.IsNullOrEmpty(weaponName))
             {
@@ -263,7 +288,7 @@ namespace RPG.Combat
                 return;
             }
 
-            WeaponConfig weapon = UnityEngine.Resources.Load<WeaponConfig>(weaponName);
+            WeaponConfig weapon = Resources.Load<WeaponConfig>(weaponName);
 
             if (weapon == null)
             {
@@ -273,17 +298,6 @@ namespace RPG.Combat
 
             EquipWeapon(weapon);
         }
-        //public JToken CaptureAsJToken()
-        //{
-        //    return JToken.FromObject(currentWeaponConfig.name);
-        //}
-
-        //public void RestoreFromJToken(JToken state)
-        //{
-        //    string weaponName = state.ToObject<string>();
-        //    WeaponConfig weapon = UnityEngine.Resources.Load<WeaponConfig>(weaponName);
-        //    EquipWeapon(weapon);
-        //}
 
 
     }

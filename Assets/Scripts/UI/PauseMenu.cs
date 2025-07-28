@@ -1,21 +1,23 @@
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;   // ← 추가
+using UnityEngine.SceneManagement;  
 using System.Collections;
+using Cinemachine;
 
 namespace RPG.UI
 {
     public class PauseMenu : MonoBehaviour
     {
         [Header("Panels")]
-        [SerializeField] GameObject pauseUI;     // PauseMenu 패널
-        [SerializeField] GameObject optionsUI;   // OptionsPanel
+        [SerializeField] GameObject pauseUI;    
+        [SerializeField] GameObject optionsUI; 
 
         [Header("Buttons")]
         [SerializeField] Button resumeButton;
         [SerializeField] Button optionsButton;
         [SerializeField] Button mainMenuButton;
-        [SerializeField] Button backButton;      // Options → Pause 로
+        [SerializeField] Button backButton;     
+        [SerializeField] CinemachineVirtualCamera vcam;
 
         bool isPaused;
 
@@ -30,6 +32,7 @@ namespace RPG.UI
             // 시작 시 패널 꺼두기
             pauseUI.SetActive(false);
             optionsUI.SetActive(false);
+            if(vcam == null) vcam = FindObjectOfType<CinemachineVirtualCamera>();
         }
 
         void Update()
@@ -47,6 +50,7 @@ namespace RPG.UI
         {
             isPaused = true;
             Time.timeScale = 0f;
+            ToggleCamera(false);
             TogglePlayerControl(false);
 
             pauseUI.SetActive(true);
@@ -58,6 +62,7 @@ namespace RPG.UI
         {
             isPaused = false;
             Time.timeScale = 1f;
+            ToggleCamera(true);
             TogglePlayerControl(true);
 
             pauseUI.SetActive(false);
@@ -105,5 +110,13 @@ namespace RPG.UI
             if (hotkeys) hotkeys.enabled = enable;
             if (dodge) dodge.enabled = enable;
         }
+        void ToggleCamera(bool enable)
+        {
+            if (!vcam) return;
+
+            var pov = vcam.GetCinemachineComponent<CinemachinePOV>();
+            if (pov != null) pov.enabled = enable;
+        }
+
     }
 }

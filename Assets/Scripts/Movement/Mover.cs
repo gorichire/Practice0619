@@ -10,7 +10,7 @@ using Newtonsoft.Json.Linq;
 
 namespace RPG.Movement
 {
-    public class Mover : MonoBehaviour , IAction , ISaveable , IJsonSaveable
+    public class Mover : MonoBehaviour , IAction /* , ISaveable*/ , IJsonSaveable
     {
         [SerializeField] Transform target;
         [SerializeField] float maxSpeed = 6f;
@@ -139,31 +139,30 @@ namespace RPG.Movement
             return total;
         }
 
-        public object CaptureState()
-        {
-            return new SerializableVector3(transform.position);
-        }
+        //public object CaptureState()
+        //{
+        //    return new SerializableVector3(transform.position);
+        //}
 
-        public void RestoreState(object state)
-        {
-            SerializableVector3 position = (SerializableVector3)state;
-            navMeshAgent.enabled = false;
-            transform.position = position.ToVector();
-            navMeshAgent.enabled = true;
-        }
+        //public void RestoreState(object state)
+        //{
+        //    SerializableVector3 position = (SerializableVector3)state;
+        //    navMeshAgent.enabled = false;
+        //    transform.position = position.ToVector();
+        //    navMeshAgent.enabled = true;
+        //}
 
         public JToken CaptureAsJToken()
         {
-            return JToken.FromObject(transform.position);
+            return transform.position.ToToken();
         }
 
         public void RestoreFromJToken(JToken state)
         {
             navMeshAgent.enabled = false;
-            transform.position = state.ToObject<Vector3>();
+            transform.position = state.ToVector3();
             navMeshAgent.enabled = true;
             GetComponent<ActionSchduler>().CancelCurrentAction();
-
         }
 
 
