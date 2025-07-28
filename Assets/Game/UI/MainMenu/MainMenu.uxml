@@ -1,0 +1,10 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Game/UI/MainMenu/mainmenu.uss?fileID=7433441132597879392&amp;guid=74092ea96331bc745a8f068dea2e6378&amp;type=3#mainmenu" />
+    <ui:VisualElement style="flex-grow: 1; width: 100%; height: 100%; display: flex; justify-content: flex-start; align-items: flex-start;">
+        <ui:Label tabindex="-1" text="Game Name" parse-escape-sequences="true" display-tooltip-when-elided="true" style="-unity-text-align: upper-center; -unity-text-outline-color: rgba(217, 217, 217, 0); -unity-font-style: bold; font-size: 50px; color: rgb(221, 221, 221); width: 487px; display: none;" />
+        <ui:Button text="Start" parse-escape-sequences="true" display-tooltip-when-elided="true" name="StartBtn" class="menu-button" style="width: 200px; background-color: rgba(255, 255, 255, 0); -unity-text-align: middle-left;" />
+        <ui:Button text="Continue" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ContinueBtn" class="menu-button" style="width: 200px; background-color: rgba(255, 255, 255, 0); -unity-text-align: middle-left;" />
+        <ui:Button text="Option" parse-escape-sequences="true" display-tooltip-when-elided="true" name="OptionsBtn" class="menu-button" style="width: 200px; background-color: rgba(255, 255, 255, 0); -unity-text-align: middle-left;" />
+        <ui:Button text="Quit" parse-escape-sequences="true" display-tooltip-when-elided="true" name="QuitBtn" class="menu-button" style="width: 200px; background-color: rgba(255, 255, 255, 0); -unity-text-align: middle-left;" />
+    </ui:VisualElement>
+</ui:UXML>

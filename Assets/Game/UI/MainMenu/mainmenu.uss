@@ -1,0 +1,33 @@
+.menu-button {
+    background-image: none;
+    -unity-font: url('project://database/Assets/Asset%20Packs/CookieRunFont_OTF/CookieRun%20Bold.otf?fileID=12800000&guid=17196205811f62c42959bbea0219c146&type=3#CookieRun Bold');
+    font-size: 30px;
+    padding-bottom: 4px;
+    padding-top: 4px;
+    padding-right: 20px;
+    padding-left: 32px;
+    -unity-font-definition: initial;
+    width: 200px;
+    top: 200px;
+    left: 100px;
+    color: rgb(255, 255, 255);
+    -unity-font-style: normal;
+    height: 100px;
+    -unity-background-image-tint-color: rgb(255, 255, 255);
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+}
+
+.menu-button:hover {
+    background-image: url('project://database/Assets/Game/UI/MainMenu/Button%20Image.png?fileID=21300000&guid=cc5c56f30227ecd41a3cea210d311bc7&type=3#Button Image');
+    color: black;
+    -unity-slice-left: 0;
+    -unity-slice-top: 0;
+    -unity-slice-right: 0;
+    -unity-slice-bottom: 0;
+    -unity-background-image-tint-color: rgb(255, 255, 255);
+    background-color: rgba(0, 0, 0, 0);
+    display: flex;
+}
