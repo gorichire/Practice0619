@@ -5,10 +5,12 @@ using UnityEngine;
 
 namespace RPG.SceneManagement
 {
+    [RequireComponent(typeof(CanvasGroup))]
     public class Fader : MonoBehaviour
     {
         CanvasGroup canvasGroup;
         Coroutine currentActiveFade = null;
+
         public static Fader Instance { get; private set; }
 
         private void Awake()
@@ -19,6 +21,7 @@ namespace RPG.SceneManagement
             }
             Instance = this;
             canvasGroup = GetComponent<CanvasGroup>();
+            if (canvasGroup == null) canvasGroup = gameObject.AddComponent<CanvasGroup>();
         }
 
         public void FadeOutImmediate()

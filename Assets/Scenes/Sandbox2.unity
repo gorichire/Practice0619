@@ -1657,7 +1657,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 1958273278}
     m_Modifications:
     - target: {fileID: 123131712722634874, guid: 456a0d6360aed434ea16d00d00f9727f,
         type: 3}
@@ -1679,6 +1679,11 @@ PrefabInstance:
         type: 3}
       propertyPath: uniqueIdentifier
       value: 17d3c0f5-87e8-4ff5-8cf4-95d9a6faed12
+      objectReference: {fileID: 0}
+    - target: {fileID: 2524909967805280180, guid: 456a0d6360aed434ea16d00d00f9727f,
+        type: 3}
+      propertyPath: uniqueIdentifier
+      value: bcdd6d95-0b77-4119-9187-537b43b641b3
       objectReference: {fileID: 0}
     - target: {fileID: 2870611515679791646, guid: 456a0d6360aed434ea16d00d00f9727f,
         type: 3}
@@ -1713,17 +1718,17 @@ PrefabInstance:
     - target: {fileID: 5414837900714579813, guid: 456a0d6360aed434ea16d00d00f9727f,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 5414837900714579813, guid: 456a0d6360aed434ea16d00d00f9727f,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 5414837900714579813, guid: 456a0d6360aed434ea16d00d00f9727f,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 5414837900714579813, guid: 456a0d6360aed434ea16d00d00f9727f,
         type: 3}
@@ -2001,6 +2006,12 @@ Transform:
   - {fileID: 1496265423}
   m_Father: {fileID: 1685990429}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1781632986 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5414837900714579813, guid: 456a0d6360aed434ea16d00d00f9727f,
+    type: 3}
+  m_PrefabInstance: {fileID: 1639871660}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1812134132 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2007088740253822776, guid: 7566c236a4d11514e97fa3d4134b537c,
@@ -2035,7 +2046,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1781632986}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2019524935
@@ -2449,4 +2461,3 @@ SceneRoots:
   - {fileID: 1958273278}
   - {fileID: 147368805}
   - {fileID: 2082387740}
-  - {fileID: 1639871660}
