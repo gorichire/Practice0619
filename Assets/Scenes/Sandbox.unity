@@ -16051,6 +16051,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8878981473438822093, guid: 0dd47f19c7c3eca4bbb9486ed6a2b55c,
+        type: 3}
+      propertyPath: lockCam
+      value: 
+      objectReference: {fileID: 94677082}
     - target: {fileID: 8991284094274773824, guid: 0dd47f19c7c3eca4bbb9486ed6a2b55c,
         type: 3}
       propertyPath: m_TrackedObjectOffset.x

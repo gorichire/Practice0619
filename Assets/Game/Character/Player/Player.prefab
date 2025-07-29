@@ -3061,6 +3061,11 @@ MonoBehaviour:
     hotspot: {x: 0, y: 0}
   maxNavMeshProjectionDistance: 1
   raycastRadius: 1
+  lockOnRange: 15
+  targetLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  lockCam: {fileID: 0}
 --- !u!54 &4152117734404336955
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -28,7 +28,7 @@ namespace RPG.Control
         [SerializeField] CursorMapping[] cursorMappings = null;
         [SerializeField] float maxNavMeshProjectionDistance = 1f;
         [SerializeField] float raycastRadius = 1f;
-        //[SerializeField] float maxNavPathLength;
+
         private void Awake()
         {
             health = GetComponent<Health>();
@@ -63,14 +63,13 @@ namespace RPG.Control
                 return;
             }
 
-            if (HandleKeyboardMovement()) return; //
+            if (HandleKeyboardMovement()) return;
 
             if (InteractWithComponent()) return;
             if (InteractWithMovement()) { return; }
 
             SetCursor(CursorType.None);
         }
-
 
         private bool HandleKeyboardMovement()
         {
