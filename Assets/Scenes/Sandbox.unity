@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.25669372, g: 0.68957794, b: 0.8192681, a: 1}
+  m_IndirectSpecularColor: {r: 0.25666955, g: 0.6895589, b: 0.8191326, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -790,6 +790,10 @@ PrefabInstance:
     - target: {fileID: 175802, guid: fd1f0c9b6d3a4034caa9af7db0891d0a, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Table_03
+      objectReference: {fileID: 0}
+    - target: {fileID: 175802, guid: fd1f0c9b6d3a4034caa9af7db0891d0a, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 418924, guid: fd1f0c9b6d3a4034caa9af7db0891d0a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2402,6 +2406,10 @@ PrefabInstance:
     - target: {fileID: 100020, guid: e6fad05c4d5f2224aaa5c991267146d3, type: 3}
       propertyPath: m_Name
       value: SM_Env_Tulips_02 (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 100020, guid: e6fad05c4d5f2224aaa5c991267146d3, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 491472, guid: e6fad05c4d5f2224aaa5c991267146d3, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4483,6 +4491,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Tulips_02 (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 100020, guid: e6fad05c4d5f2224aaa5c991267146d3, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 491472, guid: e6fad05c4d5f2224aaa5c991267146d3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 19.722187
@@ -5483,6 +5495,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Training_Pole_01
       objectReference: {fileID: 0}
+    - target: {fileID: 173586, guid: 9516557e96e9fd342a98ad615d0ff9d2, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 429854, guid: 9516557e96e9fd342a98ad615d0ff9d2, type: 3}
       propertyPath: m_LocalPosition.x
       value: 23.42752
@@ -6463,6 +6479,10 @@ PrefabInstance:
     - target: {fileID: 128542, guid: 8334f17c91a51c04094168cdf3781322, type: 3}
       propertyPath: m_Name
       value: SM_Prop_StoneBrazier_02
+      objectReference: {fileID: 0}
+    - target: {fileID: 128542, guid: 8334f17c91a51c04094168cdf3781322, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 459220, guid: 8334f17c91a51c04094168cdf3781322, type: 3}
       propertyPath: m_LocalPosition.x
@@ -9427,6 +9447,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Flowers_02
       objectReference: {fileID: 0}
+    - target: {fileID: 104858, guid: 8264d38330b69044a8a7dff1b33b4fa7, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 483116, guid: 8264d38330b69044a8a7dff1b33b4fa7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 32.75482
@@ -9688,6 +9712,10 @@ PrefabInstance:
     - target: {fileID: 113324, guid: 625541a65d7179346a2fac339f4d3f34, type: 3}
       propertyPath: m_Name
       value: SM_Env_Tulips_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 113324, guid: 625541a65d7179346a2fac339f4d3f34, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 401814, guid: 625541a65d7179346a2fac339f4d3f34, type: 3}
       propertyPath: m_LocalPosition.x
@@ -12364,6 +12392,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Tulips_02 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 100020, guid: e6fad05c4d5f2224aaa5c991267146d3, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 491472, guid: e6fad05c4d5f2224aaa5c991267146d3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 19.165888
@@ -12676,6 +12708,10 @@ PrefabInstance:
     - target: {fileID: 100596, guid: cf1e291b54d6c80499a660fa10ec0906, type: 3}
       propertyPath: m_Name
       value: SM_Env_Plant_03
+      objectReference: {fileID: 0}
+    - target: {fileID: 100596, guid: cf1e291b54d6c80499a660fa10ec0906, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 461738, guid: cf1e291b54d6c80499a660fa10ec0906, type: 3}
       propertyPath: m_LocalPosition.x
@@ -13156,6 +13192,10 @@ PrefabInstance:
     - target: {fileID: 100020, guid: e6fad05c4d5f2224aaa5c991267146d3, type: 3}
       propertyPath: m_Name
       value: SM_Env_Tulips_02 (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 100020, guid: e6fad05c4d5f2224aaa5c991267146d3, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 491472, guid: e6fad05c4d5f2224aaa5c991267146d3, type: 3}
       propertyPath: m_LocalPosition.x
@@ -13751,6 +13791,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Pot_07
       objectReference: {fileID: 0}
+    - target: {fileID: 139864, guid: f5619f0bb223dd74aa46cc34b0ab1ec9, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 462534, guid: f5619f0bb223dd74aa46cc34b0ab1ec9, type: 3}
       propertyPath: m_LocalPosition.x
       value: 24.50016
@@ -14026,6 +14070,10 @@ PrefabInstance:
     - target: {fileID: 100020, guid: e6fad05c4d5f2224aaa5c991267146d3, type: 3}
       propertyPath: m_Name
       value: SM_Env_Tulips_02
+      objectReference: {fileID: 0}
+    - target: {fileID: 100020, guid: e6fad05c4d5f2224aaa5c991267146d3, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 491472, guid: e6fad05c4d5f2224aaa5c991267146d3, type: 3}
       propertyPath: m_LocalPosition.x
