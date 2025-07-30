@@ -1,0 +1,129 @@
+using RPG.Movement;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Animations;
+using RPG.Attributes;
+using RPG.Combat;
+
+namespace RPG.Control
+{
+    public class EnemyLockOn : MonoBehaviour
+    {
+        [Header("Scan")]
+        [SerializeField] float radius = 6f;
+        [SerializeField] LayerMask targetLayers;
+
+        [Header("Look At Speed")]
+        [SerializeField] float turnSpeed = 10f;
+
+        [Header("Animator")]
+        [SerializeField] Animator anim;
+
+        Transform currentTarget;
+        public Transform CurrentTarget => currentTarget;
+
+        Mover mover;
+        Fighter fighter;
+        PlayerCombat pCombat;
+
+        void Awake()               
+        {
+            if (!anim) anim = GetComponent<Animator>();  
+            mover = GetComponent<Mover>();
+            fighter = GetComponent<Fighter>();
+            pCombat = GetComponent<PlayerCombat>();
+        }
+
+        void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Tab))
+            {
+                ToggleLockOn();
+            }
+
+            if (currentTarget)
+            {
+                if (currentTarget.TryGetComponent(out Health hp) && hp.IsDead())
+                {
+                    currentTarget = null;
+                    anim.SetBool("isTargeting", false);
+                    mover.enemyLocked = false;
+                    mover.lockRotation = false;
+
+                    ToggleLockOn();
+                    return;
+                }
+                    RotateBody();   
+            }
+        }
+
+        void ToggleLockOn()
+        {
+            if (currentTarget)           
+            {
+                currentTarget = null;
+                anim.SetBool("isTargeting", false);
+
+                mover.enemyLocked = false;  
+                mover.lockRotation = false;  
+
+                Debug.Log("<color=red>[LockOff]</color>");
+                return;
+            }
+
+            // 가장 가까운 적 한 명 찾기
+            Collider[] hits = Physics.OverlapSphere(transform.position, radius, targetLayers);
+            float closeDist = float.MaxValue;
+
+            foreach (var hit in hits)
+            {
+                if (hit.TryGetComponent(out Health hp) && hp.IsDead()) continue;
+
+                float dist = Vector3.Distance(transform.position, hit.transform.position);
+                if (dist < closeDist)
+                {
+                    closeDist = dist;
+                    currentTarget = hit.transform;
+                }
+            }
+
+            if (currentTarget)
+            {
+                Debug.Log("<color=lime>[LockOn] → " + currentTarget.name + "</color>");
+                anim.SetBool("isTargeting", true);
+                mover.enemyLocked = true;
+                mover.lockRotation = true;
+            }
+            else
+                Debug.Log("<color=yellow>[LockOn FAIL]</color>");
+        }
+
+        void RotateBody()
+        {
+            Vector3 dir = currentTarget.position - transform.position;
+            dir.y = 0f;
+            if (dir.sqrMagnitude < 0.01f) return;
+
+            Quaternion targetRot = Quaternion.LookRotation(dir);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRot,
+                                                  Time.deltaTime * turnSpeed);
+        }
+        void SwitchTarget(Transform newTarget)
+        {
+            currentTarget = newTarget;
+
+            // 1) Fighter가 바라볼 대상 교체
+            if (fighter) fighter.SetTarget(newTarget.gameObject); 
+
+            // 2) 콤보·버퍼 초기화
+            if (pCombat) pCombat.ResetCombo(); 
+
+            // 3) 락온·회전 유지
+            anim.SetBool("isTargeting", true);
+            mover.enemyLocked = true;
+            mover.lockRotation = true;
+        }
+
+    }
+}

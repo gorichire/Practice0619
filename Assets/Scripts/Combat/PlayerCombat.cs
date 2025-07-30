@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 using RPG.Core;
+using RPG.Attributes;
 
 namespace RPG.Combat
 {
@@ -16,7 +17,7 @@ namespace RPG.Combat
         int comboIndex = 0;
         bool canCombo = false;
         bool inputBuffered = false;
-
+        bool wasTargeting;
         private void Start()
         {
             animator = GetComponent<Animator>();
@@ -36,6 +37,8 @@ namespace RPG.Combat
 
         public void TryComboAttack()
         {
+            wasTargeting = GetComponent<Animator>().GetBool("isTargeting");
+            if (wasTargeting) GetComponent<Animator>().SetBool("isTargeting", false);
             scheduler.StartAction(this);
 
             currentWeapon = GetComponent<Fighter>().GetCurrentWeapon();
@@ -121,11 +124,26 @@ namespace RPG.Combat
             {
                 comboIndex = 0;
                 inputBuffered = false;
+
+                if (wasTargeting)
+                    animator.SetBool("isTargeting", true);
             }
         }
         public void SetSwordHitbox(SwordHitbox hitbox)
         {
             swordHitbox = hitbox;
+        }
+        public void SetTarget(GameObject newTarget)  
+        {
+            //target = newTarget.GetComponent<Health>();
+        }
+        public void ResetCombo()   
+        {
+            comboIndex = 0;
+            canCombo = false;
+            inputBuffered = false;
+            animator.ResetTrigger("comboAttack");
+            animator.SetInteger("comboIndex", 0);
         }
 
         public void Cancel()

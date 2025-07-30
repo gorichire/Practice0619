@@ -11,6 +11,7 @@ namespace RPG.Control
         [SerializeField] float dodgeDuration = 0.25f;
         [SerializeField] float cooldown = 3f;
         [SerializeField] string dodgeTrigger = "dodge";
+        bool wasTargeting;
 
         Animator anim;
         Health hp;
@@ -26,7 +27,7 @@ namespace RPG.Control
 
         void Awake()
         {
-            anim = GetComponent<Animator>();
+            if (!anim) anim = GetComponent<Animator>();
             hp = GetComponent<Health>();
             scheduler = GetComponent<ActionSchduler>();
             agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
@@ -35,10 +36,10 @@ namespace RPG.Control
         // 호출: PlayerController 등에서 Shift 입력 시
         public void TryDodge()
         {
-            if (Time.time < lastDodgeTime + cooldown) return;      // CHANGED
-            lastDodgeTime = Time.time;                             // CHANGED
+            if (Time.time < lastDodgeTime + cooldown) return;    
+            lastDodgeTime = Time.time;                           
 
-            // ── 카메라 기준 방향 변환 ──
+            // 카메라 기준 방향 변환
             Vector3 input = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
             if (input.sqrMagnitude > 0.01f)
             {
@@ -49,13 +50,16 @@ namespace RPG.Control
             }
             else dodgeDir = transform.forward;
 
-            // ── 액션 시작 ──
-            scheduler.StartAction(this);                            // CHANGED
-            anim.ResetTrigger(dodgeTrigger);                       // CHANGED
-            anim.SetTrigger(dodgeTrigger);                        // CHANGED
+            //  액션 시작 
+            wasTargeting = anim.GetBool("isTargeting");
+            if (wasTargeting) anim.SetBool("isTargeting", false);
+
+            scheduler.StartAction(this);                            
+            anim.ResetTrigger(dodgeTrigger);                      
+            anim.SetTrigger(dodgeTrigger);                      
 
             if (routine != null) StopCoroutine(routine);
-            routine = StartCoroutine(DodgeRoutine());              // CHANGED
+            routine = StartCoroutine(DodgeRoutine());          
         }
 
         IEnumerator DodgeRoutine()
@@ -72,6 +76,8 @@ namespace RPG.Control
             isDodging = false;
 
             anim.applyRootMotion = false;
+            if (wasTargeting && GetComponent<RPG.Control.EnemyLockOn>().enabled)
+            anim.SetBool("isTargeting", true);
             if (agent)
             {
                 agent.enabled = true;
@@ -81,7 +87,7 @@ namespace RPG.Control
             scheduler.EndAction(this);
         }
 
-        public void Cancel()                                       // CHANGED
+        public void Cancel()                                   
         {
             if (routine != null) StopCoroutine(routine);
             hp.SetInvulnerable(false);

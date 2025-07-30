@@ -27,7 +27,7 @@ namespace RPG.Combat
         LazyValue<Weapon> currentWeapon;
         bool weaponDrawn;
         PlayerCombat playerCombat;
-        WeaponConfig pendingWeapon;                  // Sheath 후 교체될 무기
+        WeaponConfig pendingWeapon;       
         Animator animator;
 
         public bool IsWeaponDrawn() => weaponDrawn;
@@ -246,6 +246,10 @@ namespace RPG.Combat
         public float CalculateAttackDamage()
         {
             return currentWeaponConfig.GetDamage() + GetComponent<BaseStats>().GetStat(Stat.Damage);
+        }
+        public void SetTarget(GameObject newTarget) 
+        {
+            target = newTarget.GetComponent<Health>();
         }
 
         //public object CaptureState()

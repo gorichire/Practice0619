@@ -59,7 +59,7 @@ namespace RPG.Attributes
                 print(" Dodge ");
                 return;
             }
-            print(gameObject.name + " took damage: " + damage);
+            //print(gameObject.name + " took damage: " + damage);
 
             healthPoints.value = Mathf.Max(healthPoints.value - damage, 0);
             if (healthPoints.value == 0)

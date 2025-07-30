@@ -7,6 +7,7 @@ using RPG.Saving;
 using Unity.VisualScripting;
 using RPG.Attributes;
 using Newtonsoft.Json.Linq;
+using UnityEngine.SocialPlatforms;
 
 namespace RPG.Movement
 {
@@ -25,48 +26,49 @@ namespace RPG.Movement
         float currentSpeed = 0f;
         float speedSmoothVelocity = 0f;
 
+        // 타게팅
+        [HideInInspector] public bool lockRotation = false;
+        [SerializeField] float lockOnSpeed = 2.0f;
+        [HideInInspector] public bool enemyLocked = false;
 
         private void Awake()
         {
             navMeshAgent = GetComponent<NavMeshAgent>();
             Health = GetComponent<Health>();
         }
-        private void Start()
-        {
-
-        }
         void Update()
         {
             navMeshAgent.enabled = !Health.IsDead();
 
+            navMeshAgent.updateRotation = !lockRotation;
+
+            if (enemyLocked)
+            {
+                UpdateLockOnMove();
+                return;
+            }
+
+            UpdateFreeMove();
+        }
+        void UpdateFreeMove()
+        {
             Vector3 velocityToUse = Vector3.zero;
 
             if (navMeshAgent.hasPath && navMeshAgent.velocity.sqrMagnitude > 0.01f)
-            {
                 velocityToUse = navMeshAgent.velocity;
-            }
             else if (isPlayer && isKeyboardMoving)
-            {
                 velocityToUse = transform.forward * maxSpeed;
-            }
-            else
-            {
-                velocityToUse = Vector3.zero;
-            }
+
             UpdateAnimator(velocityToUse);
 
-            // 
-            if (isPlayer)
-            {
-                if (!Input.anyKey || Input.GetAxisRaw("Horizontal") == 0 && Input.GetAxisRaw("Vertical") == 0)
-                {
-                    isKeyboardMoving = false;
-                }
-            }
+            if (isPlayer && (!Input.anyKey ||
+                (Input.GetAxisRaw("Horizontal") == 0 && Input.GetAxisRaw("Vertical") == 0)))
+                isKeyboardMoving = false;
         }
+
         public void MoveWithDirection(Vector3 direction)
         {
-
+            if (enemyLocked) return;
             isKeyboardMoving = direction.sqrMagnitude > 0.01f;
 
             if (!isKeyboardMoving)
@@ -82,8 +84,13 @@ namespace RPG.Movement
             navMeshAgent.Move(moveDelta);
 
             // 회전 처리
-            Quaternion targetRotation = Quaternion.LookRotation(direction);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 10f);
+            if (!lockRotation)
+            {
+                Quaternion targetRotation = Quaternion.LookRotation(direction);
+                transform.rotation = Quaternion.Slerp(transform.rotation,
+                                                      targetRotation,
+                                                      Time.deltaTime * 10f);
+            }
         }
 
         public void StartMoveAction(Vector3 destination , float speedFraction)
@@ -126,6 +133,9 @@ namespace RPG.Movement
 
             float finalSpeed = Mathf.Lerp(0f, 3.29f, currentSpeed);
             GetComponent<Animator>().SetFloat("forwardSpeed", finalSpeed);
+
+            GetComponent<Animator>().SetFloat("strafeX", localVelocity.x / maxSpeed);
+            GetComponent<Animator>().SetFloat("strafeZ", localVelocity.z / maxSpeed);
         }
         private float GetPathLength(NavMeshPath path)
         {
@@ -137,6 +147,25 @@ namespace RPG.Movement
             }
 
             return total;
+        }
+        void UpdateLockOnMove()
+        {
+            Vector3 input = new Vector3(Input.GetAxisRaw("Horizontal"),
+                                        0,
+                                        Input.GetAxisRaw("Vertical"));
+
+            bool hasInput = input.sqrMagnitude > 0.01f;
+
+            Transform cam = Camera.main.transform;
+            Vector3 camF = cam.forward; camF.y = 0; camF.Normalize();
+            Vector3 camR = cam.right; camR.y = 0; camR.Normalize();
+            Vector3 moveDir = (camR * input.x + camF * input.z).normalized;
+            navMeshAgent.isStopped = !hasInput;
+            navMeshAgent.Move(moveDir * lockOnSpeed * Time.deltaTime);
+
+            GetComponent<Animator>().SetFloat("strafeX", input.x, 0.15f, Time.deltaTime);   
+            GetComponent<Animator>().SetFloat("strafeZ", input.z, 0.15f, Time.deltaTime);   
+            GetComponent<Animator>().SetFloat("forwardSpeed", 0);     
         }
 
         //public object CaptureState()

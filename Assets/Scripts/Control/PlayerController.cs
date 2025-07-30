@@ -54,10 +54,9 @@ namespace RPG.Control
 
             if (Input.GetMouseButtonDown(0))
             {
-                playerCombat?.TryComboAttack();
+                ComboButton(playerCombat);
                 return;
             }
-
             if (playerCombat != null && playerCombat.IsComboAttacking())
             {
                 return;
@@ -69,6 +68,20 @@ namespace RPG.Control
             if (InteractWithMovement()) { return; }
 
             SetCursor(CursorType.None);
+        }
+
+        private void ComboButton(PlayerCombat playerCombat)
+        {
+            var lockOn = GetComponent<EnemyLockOn>();
+
+            if (lockOn && lockOn.CurrentTarget)
+            {
+                playerCombat?.TryComboAttack();
+            }
+            else
+            {
+                playerCombat?.TryComboAttack();
+            }
         }
 
         private bool HandleKeyboardMovement()
