@@ -39,7 +39,12 @@ namespace RPG.Movement
         void Update()
         {
             navMeshAgent.enabled = !Health.IsDead();
-
+            if (Health.IsDead())
+            {
+                enemyLocked = false;
+                lockRotation = false;
+                return;                
+            }
             navMeshAgent.updateRotation = !lockRotation;
 
             if (enemyLocked)

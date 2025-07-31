@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using RPG.Attributes;
+using static UnityEngine.Rendering.DebugUI;
 
 namespace RPG.Combat
 {
@@ -9,7 +10,13 @@ namespace RPG.Combat
     {
         private GameObject owner;
         private HashSet<Health> alreadyHit = new HashSet<Health>();
+        private Collider hitbox;
 
+        private void Awake()
+        {
+            hitbox = GetComponent<Collider>();
+            hitbox.enabled = false;
+        }
         public void SetOwner(GameObject attacker)
         {
             owner = attacker;
@@ -18,16 +25,17 @@ namespace RPG.Combat
         public void Activate()
         {
             alreadyHit.Clear(); // 새 공격 시작 시 초기화
-            GetComponent<Collider>().enabled = true;
+            hitbox.enabled = true;
         }
 
         public void Deactivate()
         {
-            GetComponent<Collider>().enabled = false;
+            hitbox.enabled = false;
         }
 
         private void OnTriggerEnter(Collider other)
         {
+            if (!hitbox.enabled) return;
             if (other.gameObject == owner) return;
 
             Health targetHealth = other.GetComponent<Health>();

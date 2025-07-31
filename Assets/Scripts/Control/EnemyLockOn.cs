@@ -13,6 +13,7 @@ namespace RPG.Control
         [Header("Scan")]
         [SerializeField] float radius = 6f;
         [SerializeField] LayerMask targetLayers;
+        [SerializeField] float maxLockDistance = 10f;
 
         [Header("Look At Speed")]
         [SerializeField] float turnSpeed = 10f;
@@ -44,17 +45,33 @@ namespace RPG.Control
 
             if (currentTarget)
             {
-                if (currentTarget.TryGetComponent(out Health hp) && hp.IsDead())
+                if (currentTarget == null)
                 {
-                    currentTarget = null;
-                    anim.SetBool("isTargeting", false);
-                    mover.enemyLocked = false;
-                    mover.lockRotation = false;
-
-                    ToggleLockOn();
+                    ToggleLockOn();             // 락온 해제 & 변수 정리
                     return;
                 }
-                    RotateBody();   
+
+                if (Vector3.Distance(transform.position, currentTarget.position) > maxLockDistance)
+                {
+                    HandleOutOfRange();
+                    if (!currentTarget) return;
+                }
+                if (currentTarget.TryGetComponent(out Health hp) && hp.IsDead())
+                {
+                    Transform next = ScanNearBy();       // 죽은 적은 제외됨
+
+                    if (next)                            // 새 적 있으면?
+                    {
+                        SwitchTarget(next);              // 바로 교체 (락온 끊김 X)
+                    }
+                    else
+                    {
+                        // 새 적 없으면 원래대로 락온 해제
+                        ToggleLockOn();
+                    }
+                    return;
+                }
+                RotateBody();   
             }
         }
 
@@ -114,16 +131,43 @@ namespace RPG.Control
             currentTarget = newTarget;
 
             // 1) Fighter가 바라볼 대상 교체
-            if (fighter) fighter.SetTarget(newTarget.gameObject); 
+            if (fighter) fighter.SetTarget(newTarget.gameObject);
 
             // 2) 콤보·버퍼 초기화
-            if (pCombat) pCombat.ResetCombo(); 
+            if (pCombat) pCombat.ResetCombo();
 
             // 3) 락온·회전 유지
             anim.SetBool("isTargeting", true);
             mover.enemyLocked = true;
             mover.lockRotation = true;
         }
+        Transform ScanNearBy()
+        {
+            Collider[] hits = Physics.OverlapSphere(transform.position, radius, targetLayers);
+            float closeDist = float.MaxValue;
+            Transform best = null;
 
-    }
+            foreach (var hit in hits)
+            {
+                // 죽은 적 패스
+                if (hit.TryGetComponent(out Health hp) && hp.IsDead()) continue;
+
+                float dist = Vector3.Distance(transform.position, hit.transform.position);
+                if (dist < closeDist)
+                {
+                    closeDist = dist;
+                    best = hit.transform;
+                }
+            }
+            return best;    
+        }
+        void HandleOutOfRange()
+        {
+            Transform next = ScanNearBy();          
+            if (next)
+                SwitchTarget(next);                   
+            else
+                ToggleLockOn();                     
+        }
+}
 }

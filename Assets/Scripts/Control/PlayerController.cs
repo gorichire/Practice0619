@@ -17,6 +17,9 @@ namespace RPG.Control
         private PlayerCombat playerCombat;
         PlayerDodge dodge;
 
+        Animator animator;
+        Mover mover;
+
         [System.Serializable]
         struct CursorMapping
         {
@@ -34,6 +37,9 @@ namespace RPG.Control
             health = GetComponent<Health>();
             playerCombat = GetComponent<PlayerCombat>();
             dodge = GetComponent<PlayerDodge>();
+
+            animator = GetComponent<Animator>();
+            mover = GetComponent<Mover>();
         }
         private void Update()
         {

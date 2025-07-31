@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using RPG.Core;
 using RPG.Attributes;
+using RPG.Control;
 
 namespace RPG.Combat
 {
@@ -11,6 +12,7 @@ namespace RPG.Combat
         SwordHitbox swordHitbox;
         Weapon currentWeapon;
         ActionSchduler scheduler;
+        Health target;
 
         public GameObject attackEffectPrefab;
         public GameObject combo4EffectPrefab;
@@ -18,6 +20,8 @@ namespace RPG.Combat
         bool canCombo = false;
         bool inputBuffered = false;
         bool wasTargeting;
+        bool targetingToggledOff;
+        public bool WasTargeting => wasTargeting;
         private void Start()
         {
             animator = GetComponent<Animator>();
@@ -37,24 +41,34 @@ namespace RPG.Combat
 
         public void TryComboAttack()
         {
-            wasTargeting = GetComponent<Animator>().GetBool("isTargeting");
-            if (wasTargeting) GetComponent<Animator>().SetBool("isTargeting", false);
+            // 0) 준비
+            currentWeapon = GetComponent<Fighter>().GetCurrentWeapon();
+            if (currentWeapon == null || !currentWeapon.HasTag("Sword")) return;
+
+            // 1) 첫 타 시작 여부 판단
+            bool startFirstHit = (comboIndex == 0 && !canCombo);
+
+            // 2) 타깃팅 토글: 첫 타일 때만 OFF
+            wasTargeting = animator.GetBool("isTargeting");
+            if (startFirstHit && wasTargeting)
+            {
+                animator.SetBool("isTargeting", false);
+                targetingToggledOff = true;
+            }
+
+            // 3) 액션 스케줄러
             scheduler.StartAction(this);
 
-            currentWeapon = GetComponent<Fighter>().GetCurrentWeapon();
-
-            if (currentWeapon != null && currentWeapon.HasTag("Sword"))
+            // 4) 로직 분기
+            if (startFirstHit)
             {
-                if (canCombo)
-                {
-                    inputBuffered = true;
-                }
-                else if (comboIndex == 0)
-                {
-                    comboIndex = 1;
-                    animator.SetInteger("comboIndex", comboIndex);
-                    animator.SetTrigger("comboAttack");
-                }
+                comboIndex = 1;
+                animator.SetInteger("comboIndex", 1);
+                animator.SetTrigger("comboAttack");
+            }
+            else if (canCombo)          // 2·3·4타 입력 버퍼
+            {
+                inputBuffered = true;
             }
         }
         void OnAnimatorMove()
@@ -129,15 +143,40 @@ namespace RPG.Combat
                     animator.SetBool("isTargeting", true);
             }
         }
+        public void ForceResetCombo()
+        {
+            InternalResetCore();
+
+            if (targetingToggledOff)
+            {
+                var lockOn = GetComponent<RPG.Control.EnemyLockOn>();
+                bool stillLocked = lockOn && lockOn.CurrentTarget != null; 
+
+                if (stillLocked)
+                    animator.SetBool("isTargeting", true); 
+
+                targetingToggledOff = false;
+            }
+        }
         public void SetSwordHitbox(SwordHitbox hitbox)
         {
             swordHitbox = hitbox;
         }
         public void SetTarget(GameObject newTarget)  
         {
-            //target = newTarget.GetComponent<Health>();
+            target = newTarget.GetComponent<Health>();
         }
         public void ResetCombo()   
+        {
+            InternalResetCore();
+        }
+
+        public void Cancel()
+        {
+            StopAllCoroutines();
+            InternalResetCore();
+        }
+        void InternalResetCore()
         {
             comboIndex = 0;
             canCombo = false;
@@ -145,16 +184,6 @@ namespace RPG.Combat
             animator.ResetTrigger("comboAttack");
             animator.SetInteger("comboIndex", 0);
         }
-
-        public void Cancel()
-        {
-            StopAllCoroutines();
-            comboIndex = 0;             
-            canCombo = false;            
-            inputBuffered = false;       
-            animator.ResetTrigger("comboAttack");
-            animator.SetInteger("comboIndex", 0);
-        }
-}
+    }
 
 }
