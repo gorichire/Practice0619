@@ -16,6 +16,7 @@ namespace RPG.Attributes
         [SerializeField] float regenerationPercentage = 100;
         [SerializeField] UnityEvent<float> takeDamage;
         [SerializeField] UnityEvent onDie;
+        [SerializeField] bool canFlinch = true;
 
 
         LazyValue<float> healthPoints;
@@ -70,6 +71,8 @@ namespace RPG.Attributes
             }
             else
             {
+                if (canFlinch)
+                    GetComponent<Animator>()?.SetTrigger("hit");
                 takeDamage.Invoke(damage);
             }
         }

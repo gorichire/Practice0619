@@ -306,6 +306,9 @@ MonoBehaviour:
   maxSpeed: 6
   maxNavPathLength: 40
   isPlayer: 0
+  lockRotation: 0
+  lockOnSpeed: 2
+  enemyLocked: 0
 --- !u!114 &9148816871259537090
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -390,6 +393,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  canFlinch: 0
 --- !u!136 &7798818833787307731
 CapsuleCollider:
   m_ObjectHideFlags: 0

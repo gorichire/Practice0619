@@ -45,6 +45,13 @@ namespace RPG.Combat
             currentWeapon = GetComponent<Fighter>().GetCurrentWeapon();
             if (currentWeapon == null || !currentWeapon.HasTag("Sword")) return;
 
+            if (!IsComboAttacking())            
+            {
+                comboIndex = 0;                 
+                canCombo = false;
+                inputBuffered = false;
+            }
+
             // 1) 첫 타 시작 여부 판단
             bool startFirstHit = (comboIndex == 0 && !canCombo);
 
@@ -66,7 +73,7 @@ namespace RPG.Combat
                 animator.SetInteger("comboIndex", 1);
                 animator.SetTrigger("comboAttack");
             }
-            else if (canCombo)          // 2·3·4타 입력 버퍼
+            else if (comboIndex > 0)
             {
                 inputBuffered = true;
             }
@@ -76,19 +83,18 @@ namespace RPG.Combat
             if (IsComboAttacking())
             {
                 transform.position += animator.deltaPosition;
-                transform.rotation = animator.rootRotation; // 회전도 Root Motion에 맞추고 싶으면
+                transform.rotation = animator.rootRotation;
             }
         }
         public bool IsComboAttacking()
         {
-            // 애니메이터에서 콤보 공격에 "ComboAttack" 태그를 반드시 지정할 것!
             AnimatorStateInfo info = animator.GetCurrentAnimatorStateInfo(0);
             return info.IsTag("ComboAttack") && !animator.IsInTransition(0);
         }
         void PlayComboAnimation(int index)
         {
             animator.SetTrigger("comboAttack");
-            animator.SetInteger("comboIndex", index); // Blend Tree or 상태 분기용
+            animator.SetInteger("comboIndex", index); 
         }
         public void SpawnAttackEffect(float yRotation)
         {
@@ -176,7 +182,7 @@ namespace RPG.Combat
             StopAllCoroutines();
             InternalResetCore();
         }
-        void InternalResetCore()
+        public void InternalResetCore()
         {
             comboIndex = 0;
             canCombo = false;

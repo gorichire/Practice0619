@@ -1,3 +1,4 @@
+using RPG.Combat;
 using UnityEngine;
 
 
@@ -15,4 +16,5 @@ namespace RPG.combat
                 anim.SetBool("isTargeting", true);
         }
     }
+
 }

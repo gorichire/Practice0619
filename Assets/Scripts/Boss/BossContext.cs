@@ -113,7 +113,6 @@ namespace BossFSM
         }
 
 
-        /// <summary> 영역(원) 밖이면 반경 위로 투영한 점 반환 </summary>
         public Vector3 ClampPointInArea(Vector3 worldPoint)
         {
             Vector3 dir = worldPoint - SpawnCenter;
@@ -122,7 +121,7 @@ namespace BossFSM
             float max = areaRadius - areaEdgePadding;
             if (dist > max)
             {
-                if (dist > 0.0001f) dir = dir / dist; // 정규화
+                if (dist > 0.0001f) dir = dir / dist; 
                 worldPoint = SpawnCenter + dir * max;
             }
             return worldPoint;
@@ -155,7 +154,6 @@ namespace BossFSM
         public Vector3 GetClampedPlayerPoint()
         {
             if (!player) return transform.position;
-            // ClampPointInArea 재사용
             return ClampPointInArea(player.position);
         }
 

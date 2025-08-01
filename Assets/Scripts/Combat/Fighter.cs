@@ -36,7 +36,7 @@ namespace RPG.Combat
         private void Awake()
         {
             animator = GetComponent<Animator>();
-            PlayerCombat playerCombat = GetComponent<PlayerCombat>();
+            playerCombat = GetComponent<PlayerCombat>();
             currentWeaponConfig = defaultWeapon;
             currentWeapon = new LazyValue<Weapon>(SetupDefaultWeapon);
         }
@@ -66,7 +66,10 @@ namespace RPG.Combat
             else
             {
                 GetComponent<Mover>().Cancel();
-                AttackBehaviour();
+                if (playerCombat == null)
+                {
+                    AttackBehaviour();
+                }
             }
         }
 

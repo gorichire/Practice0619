@@ -130,13 +130,10 @@ namespace RPG.Control
         {
             currentTarget = newTarget;
 
-            // 1) Fighter가 바라볼 대상 교체
             if (fighter) fighter.SetTarget(newTarget.gameObject);
 
-            // 2) 콤보·버퍼 초기화
             if (pCombat) pCombat.ResetCombo();
 
-            // 3) 락온·회전 유지
             anim.SetBool("isTargeting", true);
             mover.enemyLocked = true;
             mover.lockRotation = true;
@@ -149,7 +146,6 @@ namespace RPG.Control
 
             foreach (var hit in hits)
             {
-                // 죽은 적 패스
                 if (hit.TryGetComponent(out Health hp) && hp.IsDead()) continue;
 
                 float dist = Vector3.Distance(transform.position, hit.transform.position);
