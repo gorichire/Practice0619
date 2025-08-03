@@ -75,6 +75,11 @@ PrefabInstance:
       objectReference: {fileID: 9000000, guid: 5ae02fce3fd08f140888c4d8f1f2cfc3, type: 3}
     - target: {fileID: 7637835951512558161, guid: c8837be8daebe76499b6112c04439f13,
         type: 3}
+      propertyPath: canFlinch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7637835951512558161, guid: c8837be8daebe76499b6112c04439f13,
+        type: 3}
       propertyPath: healthPoints
       value: 20
       objectReference: {fileID: 0}

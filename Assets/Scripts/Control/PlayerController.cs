@@ -50,7 +50,7 @@ namespace RPG.Control
             }
             if (dodge.IsDodging()) return;
 
-            if (InteractWithUI()) return;
+            bool pointerOverUI = InteractWithUI();
             if (health.IsDead())
             {
                 SetCursor(CursorType.None);
@@ -69,6 +69,8 @@ namespace RPG.Control
             }
 
             if (HandleKeyboardMovement()) return;
+
+            if (pointerOverUI) return;
 
             if (InteractWithComponent()) return;
             if (InteractWithMovement()) { return; }

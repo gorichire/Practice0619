@@ -8,6 +8,7 @@ using RPG.Stats;
 using RPG.Core;
 using RPG.Utils;
 using UnityEngine.Events;
+using UnityEngine.AI;
 
 namespace RPG.Attributes
 {
@@ -18,6 +19,9 @@ namespace RPG.Attributes
         [SerializeField] UnityEvent onDie;
         [SerializeField] bool canFlinch = true;
 
+        [SerializeField] float knockbackDistance = 1.2f;  // 몇 m 밀릴지
+        [SerializeField] float knockbackSpeed = 6f;    // 초당 이동 속도
+        NavMeshAgent agent;
 
         LazyValue<float> healthPoints;
 
@@ -28,6 +32,7 @@ namespace RPG.Attributes
         private void Awake()
         {
             healthPoints = new LazyValue<float>(GetInitialHealth);
+            agent = GetComponent<NavMeshAgent>();
         }
 
         private float GetInitialHealth()
@@ -72,7 +77,11 @@ namespace RPG.Attributes
             else
             {
                 if (canFlinch)
+                {
+                    GetComponent<ActionSchduler>()?.CancelCurrentAction();
                     GetComponent<Animator>()?.SetTrigger("hit");
+                    StartCoroutine(Knockback(instigator.transform));
+                }
                 takeDamage.Invoke(damage);
             }
         }
@@ -132,6 +141,28 @@ namespace RPG.Attributes
                     boss.agent.enabled = false;
                 }
             }
+        }
+        IEnumerator Knockback(Transform attacker)
+        {
+            if (!agent || !agent.isOnNavMesh) yield break;
+
+            Vector3 dir = (transform.position - attacker.position).normalized;
+            float moved = 0f;
+
+            if (agent.isActiveAndEnabled && agent.isOnNavMesh) agent.isStopped = true;
+
+            while (moved < knockbackDistance)
+            {
+                float step = knockbackSpeed * Time.deltaTime;
+                if (agent.isActiveAndEnabled && agent.isOnNavMesh)
+                    agent.Move(dir * step);
+                else
+                    transform.position += dir * step;
+                moved += step;
+                yield return null;
+            }
+
+            if (agent.isActiveAndEnabled && agent.isOnNavMesh) agent.isStopped = false;
         }
 
         private void RegenerateHealth()

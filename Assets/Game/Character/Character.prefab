@@ -394,6 +394,8 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   canFlinch: 0
+  knockbackDistance: 3
+  knockbackSpeed: 3
 --- !u!136 &7798818833787307731
 CapsuleCollider:
   m_ObjectHideFlags: 0

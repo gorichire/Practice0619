@@ -11,6 +11,7 @@ namespace RPG.Combat
         private GameObject owner;
         private HashSet<Health> alreadyHit = new HashSet<Health>();
         private Collider hitbox;
+        [SerializeField] private GameObject hitEffectPrefab;
 
         private void Awake()
         {
@@ -42,7 +43,15 @@ namespace RPG.Combat
             if (targetHealth == null) return;
             if (targetHealth.IsDead()) return;
 
-            // 중복 타격 방지
+            if (hitEffectPrefab != null)
+            {
+                Vector3 contact = other.ClosestPoint(transform.position);
+                Quaternion rot = Quaternion.LookRotation(-transform.forward);
+
+                GameObject fx = Instantiate(hitEffectPrefab, contact, rot);
+            }
+            ImpactFX.I.HitStop(0.08f, 0f, 1f, 1f);
+
             if (alreadyHit.Contains(targetHealth)) return;
 
             var fighter = owner.GetComponent<Fighter>();

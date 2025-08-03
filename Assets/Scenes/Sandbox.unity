@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.25669372, g: 0.68957794, b: 0.8192681, a: 1}
+  m_IndirectSpecularColor: {r: 0.25666955, g: 0.6895589, b: 0.8191326, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4325,6 +4325,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Bush_03 (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 192004, guid: 7189dbbe71d3f654c9b61871602d64f2, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 499950, guid: 7189dbbe71d3f654c9b61871602d64f2, type: 3}
       propertyPath: m_LocalPosition.x
       value: 6.9452224
@@ -4457,6 +4461,11 @@ PrefabInstance:
         type: 3}
       propertyPath: uniqueIdentifier
       value: c28a1aa4-2294-4e98-a88f-18de8ecd2247
+      objectReference: {fileID: 0}
+    - target: {fileID: 8534786212654724723, guid: 86c1a75b3e8d50e47b252ec8dce22d0c,
+        type: 3}
+      propertyPath: canFlinch
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8650321431937292808, guid: 86c1a75b3e8d50e47b252ec8dce22d0c,
         type: 3}
@@ -4920,6 +4929,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IncludeLayers.m_Bits
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8534786212654724723, guid: 86c1a75b3e8d50e47b252ec8dce22d0c,
+        type: 3}
+      propertyPath: canFlinch
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8650321431937292808, guid: 86c1a75b3e8d50e47b252ec8dce22d0c,
         type: 3}
@@ -6782,6 +6796,11 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4788011629888478666, guid: 964fc1456b9ad47419fea718d659c097,
+        type: 3}
+      propertyPath: canFlinch
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5167770663706476872, guid: 964fc1456b9ad47419fea718d659c097,
         type: 3}
       propertyPath: m_IsTrigger
@@ -8616,6 +8635,11 @@ PrefabInstance:
       propertyPath: uniqueIdentifier
       value: d9b28eee-a6a9-4155-914e-81f39379f946
       objectReference: {fileID: 0}
+    - target: {fileID: 4788011629888478666, guid: 964fc1456b9ad47419fea718d659c097,
+        type: 3}
+      propertyPath: canFlinch
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5480832780370489777, guid: 964fc1456b9ad47419fea718d659c097,
         type: 3}
       propertyPath: patrolPath
@@ -9831,6 +9855,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Tulips_02 (16)
       objectReference: {fileID: 0}
+    - target: {fileID: 100020, guid: e6fad05c4d5f2224aaa5c991267146d3, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 491472, guid: e6fad05c4d5f2224aaa5c991267146d3, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3.2678413
@@ -10322,6 +10350,10 @@ PrefabInstance:
     - target: {fileID: 192004, guid: 7189dbbe71d3f654c9b61871602d64f2, type: 3}
       propertyPath: m_Name
       value: SM_Env_Bush_03 (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 192004, guid: 7189dbbe71d3f654c9b61871602d64f2, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 499950, guid: 7189dbbe71d3f654c9b61871602d64f2, type: 3}
       propertyPath: m_LocalPosition.x
@@ -10885,6 +10917,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4788011629888478666, guid: 964fc1456b9ad47419fea718d659c097,
+        type: 3}
+      propertyPath: canFlinch
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5809195781020453536, guid: 964fc1456b9ad47419fea718d659c097,
         type: 3}
@@ -12770,6 +12807,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Bush_02 (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 186734, guid: bf927057f20014040b17e9dcc8dd8ecb, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 496962, guid: bf927057f20014040b17e9dcc8dd8ecb, type: 3}
       propertyPath: m_LocalPosition.x
       value: 7.0600514
@@ -13887,6 +13928,10 @@ PrefabInstance:
     - target: {fileID: 100020, guid: e6fad05c4d5f2224aaa5c991267146d3, type: 3}
       propertyPath: m_Name
       value: SM_Env_Tulips_02 (15)
+      objectReference: {fileID: 0}
+    - target: {fileID: 100020, guid: e6fad05c4d5f2224aaa5c991267146d3, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 491472, guid: e6fad05c4d5f2224aaa5c991267146d3, type: 3}
       propertyPath: m_LocalPosition.x
@@ -15565,6 +15610,26 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3683593152335581651, guid: 0dd47f19c7c3eca4bbb9486ed6a2b55c,
+        type: 3}
+      propertyPath: m_DefaultVelocity.x
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3683593152335581651, guid: 0dd47f19c7c3eca4bbb9486ed6a2b55c,
+        type: 3}
+      propertyPath: m_DefaultVelocity.y
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3683593152335581651, guid: 0dd47f19c7c3eca4bbb9486ed6a2b55c,
+        type: 3}
+      propertyPath: m_DefaultVelocity.z
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3683593152335581651, guid: 0dd47f19c7c3eca4bbb9486ed6a2b55c,
+        type: 3}
+      propertyPath: m_ImpulseDefinition.m_ImpulseShape
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 3744417444700059651, guid: 0dd47f19c7c3eca4bbb9486ed6a2b55c,
         type: 3}
       propertyPath: uniqueIdentifier
@@ -16224,6 +16289,8 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 9118090563349457691, guid: 0dd47f19c7c3eca4bbb9486ed6a2b55c, type: 3}
     - {fileID: 1386041674994675588, guid: 0dd47f19c7c3eca4bbb9486ed6a2b55c, type: 3}
+    - {fileID: 6298823314889442243, guid: 0dd47f19c7c3eca4bbb9486ed6a2b55c, type: 3}
+    - {fileID: 1177191895061111976, guid: 0dd47f19c7c3eca4bbb9486ed6a2b55c, type: 3}
     m_RemovedGameObjects:
     - {fileID: 7086541692517154742, guid: 0dd47f19c7c3eca4bbb9486ed6a2b55c, type: 3}
     - {fileID: 2498338279048440599, guid: 0dd47f19c7c3eca4bbb9486ed6a2b55c, type: 3}

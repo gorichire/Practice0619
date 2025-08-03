@@ -145,8 +145,10 @@ namespace RPG.Combat
                 comboIndex = 0;
                 inputBuffered = false;
 
-                if (wasTargeting)
-                    animator.SetBool("isTargeting", true);
+                var lockOn = GetComponent<RPG.Control.EnemyLockOn>();
+                bool stillHasTarget = lockOn && lockOn.CurrentTarget != null;
+                
+                animator.SetBool("isTargeting", stillHasTarget);
             }
         }
         public void ForceResetCombo()
@@ -155,12 +157,13 @@ namespace RPG.Combat
 
             if (targetingToggledOff)
             {
-                var lockOn = GetComponent<RPG.Control.EnemyLockOn>();
+                var lockOn = GetComponent<EnemyLockOn>();
                 bool stillLocked = lockOn && lockOn.CurrentTarget != null; 
 
                 if (stillLocked)
-                    animator.SetBool("isTargeting", true); 
+                    animator.SetBool("isTargeting", true);
 
+                wasTargeting = stillLocked;
                 targetingToggledOff = false;
             }
         }

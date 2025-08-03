@@ -89,6 +89,11 @@ PrefabInstance:
       propertyPath: rightHandTransform
       value: 
       objectReference: {fileID: 6482033271149982032}
+    - target: {fileID: 8534786212654724723, guid: 86c1a75b3e8d50e47b252ec8dce22d0c,
+        type: 3}
+      propertyPath: canFlinch
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8650321431937292808, guid: 86c1a75b3e8d50e47b252ec8dce22d0c,
         type: 3}
       propertyPath: chaseDistance
