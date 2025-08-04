@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using RPG.Attributes;
 using static UnityEngine.Rendering.DebugUI;
+using UnityEngine.Events;
 
 namespace RPG.Combat
 {
@@ -12,6 +13,7 @@ namespace RPG.Combat
         private HashSet<Health> alreadyHit = new HashSet<Health>();
         private Collider hitbox;
         [SerializeField] private GameObject hitEffectPrefab;
+        [SerializeField] UnityEvent sowrdOnHit;
 
         private void Awake()
         {
@@ -34,6 +36,11 @@ namespace RPG.Combat
             hitbox.enabled = false;
         }
 
+        public void SowrdOnHit()
+        {
+            sowrdOnHit.Invoke();
+        }
+
         private void OnTriggerEnter(Collider other)
         {
             if (!hitbox.enabled) return;
@@ -50,6 +57,7 @@ namespace RPG.Combat
 
                 GameObject fx = Instantiate(hitEffectPrefab, contact, rot);
             }
+            SowrdOnHit();
             ImpactFX.I.HitStop(0.08f, 0f, 1f, 1f);
 
             if (alreadyHit.Contains(targetHealth)) return;

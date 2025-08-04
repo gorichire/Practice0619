@@ -84,5 +84,6 @@ namespace RPG.Combat
         {
             return weaponRange;
         }
+        public Projectile GetProjectilePrefab() => projectile;
     }
 }

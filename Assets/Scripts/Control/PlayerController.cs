@@ -16,7 +16,7 @@ namespace RPG.Control
         Health health;
         private PlayerCombat playerCombat;
         PlayerDodge dodge;
-
+        BowHandler bow;
         Animator animator;
         Mover mover;
 
@@ -40,9 +40,12 @@ namespace RPG.Control
 
             animator = GetComponent<Animator>();
             mover = GetComponent<Mover>();
+            bow = GetComponent<BowHandler>();
         }
         private void Update()
         {
+            bow?.Tick();
+            bool aiming = bow && bow.IsAiming;
             if (Input.GetKeyDown(KeyCode.LeftShift))
             {
                 dodge.TryDodge();
@@ -58,12 +61,13 @@ namespace RPG.Control
             }
             var playerCombat = GetComponent<PlayerCombat>();
 
-            if (Input.GetMouseButtonDown(0))
+            if (!aiming && Input.GetMouseButtonDown(0))
             {
                 ComboButton(playerCombat);
                 return;
             }
-            if (playerCombat != null && playerCombat.IsComboAttacking())
+
+            if (!aiming && playerCombat != null && playerCombat.IsComboAttacking())
             {
                 return;
             }

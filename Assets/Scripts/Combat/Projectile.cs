@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using RPG.Attributes;
 using UnityEngine.Events;
+using System.Text.RegularExpressions;
 
 namespace RPG.Combat
 {
@@ -19,6 +20,7 @@ namespace RPG.Combat
         Health target = null;
         GameObject instigator = null;
         float damage = 0;
+        bool hasTarget => target != null;
 
         private void Start()
         {
@@ -26,8 +28,12 @@ namespace RPG.Combat
         }
         void Update()
         {
-            if (target == null) return;
-            if (isHoming && !target.IsDead())
+            if (target == null)
+            {
+                transform.Translate(Vector3.forward * speed * Time.deltaTime);
+                return;
+            }
+            if (hasTarget && isHoming && !target.IsDead())
             {
                 transform.LookAt(GetAimLocation());
             }
@@ -45,12 +51,18 @@ namespace RPG.Combat
         }
         private Vector3 GetAimLocation()
         {
-            CapsuleCollider targetCapsule = target.GetComponent<CapsuleCollider>();
-            if (targetCapsule == null)
-            {
-                return target.transform.position;
-            }
-            return target.transform.position + Vector3.up * targetCapsule.height / 2;
+            //CapsuleCollider targetCapsule = target.GetComponent<CapsuleCollider>();
+            //if (targetCapsule == null)
+            //{
+            //    return target.transform.position;
+            //}
+            //return target.transform.position + Vector3.up * targetCapsule.height / 2;
+            if (!hasTarget) return transform.position + transform.forward * 2f;
+
+            CapsuleCollider capsule = target.GetComponent<CapsuleCollider>();
+            return capsule
+                ? target.transform.position + Vector3.up * capsule.height * 0.5f
+                : target.transform.position;
         }
         private void OnTriggerEnter(Collider other)
         {

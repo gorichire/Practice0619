@@ -29,6 +29,7 @@ namespace RPG.Combat
         PlayerCombat playerCombat;
         WeaponConfig pendingWeapon;       
         Animator animator;
+        public bool IsWeaponChanging() => pendingWeapon != null;
 
         public bool IsWeaponDrawn() => weaponDrawn;
         public bool IsCurrentWeapon(WeaponConfig wc) => currentWeaponConfig == wc;
@@ -43,6 +44,7 @@ namespace RPG.Combat
 
         private Weapon SetupDefaultWeapon()
         {
+            if (defaultWeapon == null) return null;
             Weapon weaponInstance = AttachWeapon(defaultWeapon);
             equippedWeapon = weaponInstance;  
             return weaponInstance;
@@ -118,7 +120,6 @@ namespace RPG.Combat
             animator.SetTrigger("Draw");
         }
 
-        /* 호출: Hotkeys → Sheath 트리거 */
         public void StartSheath(WeaponConfig nextCfg)
         {
             pendingWeapon = nextCfg;
@@ -128,6 +129,7 @@ namespace RPG.Combat
 
         private Weapon AttachWeapon(WeaponConfig weapon)
         {
+            if (weapon == null) return null;
             Animator animator = GetComponent<Animator>();
             return weapon.Spawn(rightHandTransform, leftHandTransform, animator);
         }
@@ -228,6 +230,7 @@ namespace RPG.Combat
         }
         void OnDrawEquip()
         {
+            if (pendingWeapon == null) return;
             EquipWeapon(pendingWeapon);
             weaponDrawn = true;
             scabbardSword.SetActive(false);
@@ -255,6 +258,10 @@ namespace RPG.Combat
             target = newTarget.GetComponent<Health>();
         }
 
+        public WeaponConfig GetCurrentWeaponConfig()
+        {
+            return currentWeaponConfig;
+        }
         //public object CaptureState()
         //{
         //    return currentWeaponConfig.name;

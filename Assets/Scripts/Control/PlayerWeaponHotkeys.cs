@@ -20,25 +20,29 @@ namespace RPG.Control
 
         void Update()
         {
-            /* 1,3,4번 : 검을 낀 상태면 ‘Sheath’ → 끝나면 새 무기 장착 */
-            if (Input.GetKeyDown(KeyCode.Alpha1)) HandleRequest(unarmedWeapon);
-            if (Input.GetKeyDown(KeyCode.Alpha3)) HandleRequest(bowWeapon);
-            if (Input.GetKeyDown(KeyCode.Alpha4)) HandleRequest(iceWeapon);
-
-            /* 2번 : 검이 없으면 ‘Draw’ */
-            if (Input.GetKeyDown(KeyCode.Alpha2) &&
-                !fighter.IsCurrentWeapon(swordWeapon))
-            {
-                fighter.StartDraw(swordWeapon);
-            }
+            if (Input.GetKeyDown(KeyCode.Alpha1)) Request(unarmedWeapon);
+            if (Input.GetKeyDown(KeyCode.Alpha2)) Request(swordWeapon);
+            if (Input.GetKeyDown(KeyCode.Alpha3)) Request(bowWeapon);
+            if (Input.GetKeyDown(KeyCode.Alpha4)) Request(iceWeapon);
         }
 
-        void HandleRequest(WeaponConfig nextWeapon)
+        void Request(WeaponConfig desired)
         {
-            if (fighter.IsCurrentWeapon(swordWeapon) && fighter.IsWeaponDrawn())
-                fighter.StartSheath(nextWeapon);   // 애니메이션 → 교체
-            else
-                fighter.EquipWeapon(nextWeapon);   // 즉시 교체
+            if (fighter.IsWeaponChanging()) return;
+            if (fighter.IsCurrentWeapon(desired) && fighter.IsWeaponDrawn())
+            {
+                fighter.StartSheath(unarmedWeapon); 
+                return;
+            }
+
+            if (desired == unarmedWeapon)
+            {
+                if (fighter.IsWeaponDrawn()) fighter.StartSheath(null); 
+                return;
+            }
+
+            if (fighter.IsWeaponDrawn()) fighter.StartSheath(desired);
+            else fighter.StartDraw(desired);
         }
     }
 }

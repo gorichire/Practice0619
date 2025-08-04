@@ -2731,7 +2731,7 @@ Transform:
   m_GameObject: {fileID: 7607021016997386964}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 1.7, z: 0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3057,6 +3057,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 7619068534383116583}
+    - targetCorrespondingSourceObject: {fileID: 5209447563872160195, guid: c8837be8daebe76499b6112c04439f13,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -4618422969082325345}
   m_SourcePrefab: {fileID: 100100000, guid: c8837be8daebe76499b6112c04439f13, type: 3}
 --- !u!4 &2007088740253822776 stripped
 Transform:
@@ -3183,7 +3187,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unarmedWeapon: {fileID: 11400000, guid: 3f2577d3364eaa2458eeb42abaf89e0c, type: 2}
   swordWeapon: {fileID: 11400000, guid: 90572be8c5b2ab840917c8a11451ce4d, type: 2}
-  bowWeapon: {fileID: 11400000, guid: 6b271736a8152ae4a979af68682c63e3, type: 2}
+  bowWeapon: {fileID: 11400000, guid: 43561d771d5cbb04ea0d62dad8b5029b, type: 2}
   iceWeapon: {fileID: 11400000, guid: 66bae3938674c9247a33628bf3d1df06, type: 2}
 --- !u!114 &1603181640444845036
 MonoBehaviour:
@@ -3212,17 +3216,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3f6dc76b3fc4af4c90a21b48e969f25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  radius: 6
   targetLayers:
     serializedVersion: 2
     m_Bits: 256
-  enemyTarget_Locator: {fileID: 5268132987101220986}
-  cinemachineAnimator: {fileID: 0}
-  zeroVert_Look: 0
-  noticeZone: 10
-  lookAtSmoothing: 2
-  maxNoticeAngle: 60
-  crossHair_Scale: 0.1
-  lockOnCanvas: {fileID: 0}
+  maxLockDistance: 10
+  turnSpeed: 10
+  anim: {fileID: 0}
+--- !u!114 &-4618422969082325345
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7571071893490919622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36bf8b6bce832b046ac2c2a660f6fd06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vCam: {fileID: 8875356486816263163, guid: 3b623113be6b69f4d9525c6ba0831f02, type: 3}
+  aimFOV: 10
+  normalFOV: 60
+  zoomTime: 0.12
+  bowTag: Bow
+  arrowSpawn: {fileID: 9113628310547423539, guid: 6768f1598cf3fc244b2478b86e6512fe,
+    type: 3}
+  aimMask:
+    serializedVersion: 2
+    m_Bits: 392
+  minAimDistance: 1
+  ignoreSelf: 1
 --- !u!1001 &3662506965777764638
 PrefabInstance:
   m_ObjectHideFlags: 0
