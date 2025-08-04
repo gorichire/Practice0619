@@ -21,3 +21,5 @@ MonoBehaviour:
   isRightHanded: 1
   projectile: {fileID: 922305828748592066, guid: b8daea8f2e9b07e4f82c99bc15a25c1c,
     type: 3}
+  weaponTag: Staff
+  instantEquip: 1

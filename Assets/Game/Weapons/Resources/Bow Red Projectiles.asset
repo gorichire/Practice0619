@@ -21,3 +21,4 @@ MonoBehaviour:
   isRightHanded: 0
   projectile: {fileID: 652343684881027525, guid: f766b55264806d24c9090da14ad32599,
     type: 3}
+  weaponTag: Bow

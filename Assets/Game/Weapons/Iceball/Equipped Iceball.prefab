@@ -47,4 +47,4 @@ MonoBehaviour:
   onHit:
     m_PersistentCalls:
       m_Calls: []
-  weaponTag: 
+  weaponTag: Staff

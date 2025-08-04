@@ -28,21 +28,19 @@ namespace RPG.Control
 
         void Request(WeaponConfig desired)
         {
-            if (fighter.IsWeaponChanging()) return;
+            if (fighter.IsWeaponChanging()) return;           
+
+
             if (fighter.IsCurrentWeapon(desired) && fighter.IsWeaponDrawn())
             {
-                fighter.StartSheath(unarmedWeapon); 
+                fighter.StartSheath(unarmedWeapon);
                 return;
             }
 
-            if (desired == unarmedWeapon)
-            {
-                if (fighter.IsWeaponDrawn()) fighter.StartSheath(null); 
-                return;
-            }
-
-            if (fighter.IsWeaponDrawn()) fighter.StartSheath(desired);
-            else fighter.StartDraw(desired);
+            if (fighter.IsWeaponDrawn())
+                fighter.StartSheath(desired);   
+            else
+                fighter.StartDraw(desired); ;
         }
     }
 }

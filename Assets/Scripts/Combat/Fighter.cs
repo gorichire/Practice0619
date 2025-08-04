@@ -19,6 +19,7 @@ namespace RPG.Combat
         [SerializeField] Transform leftHandTransform = null;
         [SerializeField] WeaponConfig defaultWeapon = null;
         [SerializeField] GameObject scabbardSword;
+        [SerializeField] GameObject backBow;
 
         Health target;
         Weapon equippedWeapon;
@@ -85,7 +86,7 @@ namespace RPG.Combat
 
             if (weaponInstance == null)
             {
-                if (weapon != defaultWeapon) EquipWeapon(defaultWeapon);
+                equippedWeapon = null;
                 return;
             }
 
@@ -113,16 +114,52 @@ namespace RPG.Combat
             }
         }
 
-        public void StartDraw(WeaponConfig swordCfg)
+        public void StartDraw(WeaponConfig weaponCfg)
         {
-            pendingWeapon = swordCfg;
+            pendingWeapon = weaponCfg;
+
+            if (weaponCfg.UseInstantEquip())
+            {
+                EquipWeapon(pendingWeapon);
+                weaponDrawn = true;
+
+                if (weaponCfg.HasTag("Sword") && scabbardSword)
+                    scabbardSword.SetActive(false);
+
+                pendingWeapon = null;
+                return;
+            }
+
+            animator.runtimeAnimatorController = weaponCfg.GetAnimatorOverride();
             animator.ResetTrigger("Sheath");
-            animator.SetTrigger("Draw");
+            animator.SetTrigger("Draw"); 
         }
 
-        public void StartSheath(WeaponConfig nextCfg)
+        public void StartSheath(WeaponConfig nextWeapon)
         {
-            pendingWeapon = nextCfg;
+            pendingWeapon = nextWeapon;
+
+            RuntimeAnimatorController ovr = currentWeaponConfig != null
+                                            ? currentWeaponConfig.GetAnimatorOverride()
+                                            : null;
+            bool hasSheathClip = ovr != null;
+
+            if (!hasSheathClip)  
+            {
+                if (equippedWeapon) Destroy(equippedWeapon.gameObject);
+                weaponDrawn = false;
+
+
+                if (currentWeaponConfig && currentWeaponConfig.HasTag("Sword") && scabbardSword)
+                    scabbardSword.SetActive(true);
+
+                var next = pendingWeapon;   
+                pendingWeapon = null;    
+
+                if (next) StartDraw(next);   
+                return;
+            }
+
             animator.ResetTrigger("Draw");
             animator.SetTrigger("Sheath");
         }
@@ -231,19 +268,34 @@ namespace RPG.Combat
         void OnDrawEquip()
         {
             if (pendingWeapon == null) return;
+
             EquipWeapon(pendingWeapon);
             weaponDrawn = true;
-            scabbardSword.SetActive(false);
+
+            if (pendingWeapon.HasTag("Sword") && scabbardSword)
+                scabbardSword.SetActive(false);
+
+            if (pendingWeapon.HasTag("Bow") && backBow)
+                backBow.SetActive(false);
+
             pendingWeapon = null;
         }
 
         void OnSheathComplete()
         {
+            if (equippedWeapon) Destroy(equippedWeapon.gameObject);
             weaponDrawn = false;
-            scabbardSword.SetActive(true);
 
-            if (pendingWeapon != null) EquipWeapon(pendingWeapon);
+            if (currentWeaponConfig && currentWeaponConfig.HasTag("Sword") && scabbardSword)
+                scabbardSword.SetActive(true);
+
+            if (currentWeaponConfig && currentWeaponConfig.HasTag("Bow") && backBow)
+                backBow.SetActive(true);
+
+            var next = pendingWeapon;
             pendingWeapon = null;
+
+            if (next) StartDraw(next);
         }
         public Weapon GetCurrentWeapon()
         {
