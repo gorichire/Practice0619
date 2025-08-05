@@ -10,7 +10,7 @@ namespace BossFSM
         public Transform player;
         public BossRigController rigCtrl;
 
-        [Header("Movement Area (원형)")]
+        [Header("Movement Area")]
         public float areaRadius = 30f;
         [Tooltip("에이전트가 경계 바로 위로 가는 것을 방지할 내부 여유")]
         public float areaEdgePadding = 0.5f;
@@ -20,8 +20,8 @@ namespace BossFSM
         public float stopChaseDistance = 8f;
 
         [Header("Post Attack Idle")]
-        public float postAttackIdleDuration = 5f;   // 공격 끝난 뒤 강제 Idle 시간
-        [HideInInspector] public float postAttackIdleTimer; // >0 이면 잠금
+        public float postAttackIdleDuration = 5f;
+        [HideInInspector] public float postAttackIdleTimer;
         public bool IsPostAttackLock() => postAttackIdleTimer > 0f;
 
         [Header("Charge Attack")]
@@ -59,6 +59,13 @@ namespace BossFSM
         public float chargeDamage = 30f;
         public float chargeHitRadius = 2f;
 
+        [Header("Pre-cast Settings")]
+        public float chargePrepTime = 5f;
+        public float spitPrepTime = 5f;
+
+        public GameObject chargePrepVFX;
+        public GameObject spitPrepVFX;
+        public GameObject spitPrepVFX2;
 
         [HideInInspector] public IdleState idleState;
         [HideInInspector] public ChaseState chaseState;
@@ -66,9 +73,8 @@ namespace BossFSM
         [HideInInspector] public float idleBaseline = 0.3f;
 
 
-        public float moveSpeed = 4f; // NavMeshAgent.speed와 동일하게 맞추
+        public float moveSpeed = 4f;
 
-        // 출생 중심
         public Vector3 SpawnCenter { get; private set; }
 
         void Awake()
@@ -88,7 +94,6 @@ namespace BossFSM
         {
             current?.Tick();
 
-            // 슬리더 업데이트 (moveFactor 계산 + baseline)
             if (rigCtrl)
             {
                 float moveFactor = 0f;
@@ -101,7 +106,6 @@ namespace BossFSM
             tGlobal += Time.deltaTime;
             tSpit += Time.deltaTime;
 
-            postAttackIdleTimer -= Time.deltaTime;
             bool lockJustEnded = postAttackIdleTimer > 0f && (postAttackIdleTimer - Time.deltaTime) <= 0f;
             postAttackIdleTimer -= Time.deltaTime;
             if (postAttackIdleTimer < 0f) postAttackIdleTimer = 0f;

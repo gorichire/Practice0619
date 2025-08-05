@@ -27,13 +27,24 @@ namespace BossFSM
 
         IEnumerator Seq()
         {
-            float prep = 0.4f;
-            yield return new WaitForSeconds(prep);
+            GameObject prepFx = null;
+            if (ctx.chargePrepVFX)
+                prepFx = Object.Instantiate(ctx.chargePrepVFX,
+                                            ctx.rigCtrl ? ctx.rigCtrl.mouth.position : ctx.transform.position,
+                                            Quaternion.identity,
+                                            ctx.transform);
 
-            // === Dash 시작 직전 이펙트 1회 ===
+            float Lookt = 0f;
+            while (Lookt < ctx.chargePrepTime)
+            {
+                ctx.FacePlayerFlat();
+                Lookt += Time.deltaTime;
+                yield return null;
+            }
+
             SpawnChargeStartFX();
-
             ctx.rigCtrl?.EnterChargeDashPose();
+
 
             Vector3 dir = (ctx.GetBoundaryPointToPlayer() - ctx.transform.position);
             dir.y = 0;
@@ -43,12 +54,12 @@ namespace BossFSM
             float dashTime = 1.0f;
             float speed = 15f;
             float t = 0f;
+
             while (t < dashTime)
             {
                 ctx.transform.position += dir * speed * Time.deltaTime;
                 ctx.ClampSelfInsideArea();
 
-                // === 돌진 히트 1회 판정 ===
                 if (!chargeHitApplied && ctx.player)
                 {
                     Vector3 dp = ctx.player.position - ctx.transform.position;
@@ -58,18 +69,16 @@ namespace BossFSM
                         var h = ctx.player.GetComponent<RPG.Attributes.Health>();
                         if (h)
                         {
-                            h.TakeDamage(ctx.gameObject, ctx.chargeDamage); // Health.TakeDamage 사용
+                            h.TakeDamage(ctx.gameObject, ctx.chargeDamage);
                         }
                         chargeHitApplied = true;
                     }
                 }
-                // ==========================
-
                 t += Time.deltaTime;
                 yield return null;
             }
-            ctx.rigCtrl?.ResetAfterAttack();   // (선택) 리그 원복
-            ctx.StartPostAttackIdleLock();     // Idle 강제 시간 시작
+            ctx.rigCtrl?.ResetAfterAttack();
+            ctx.StartPostAttackIdleLock();
             ctx.ChangeState(ctx.idleState);
         }
         void SpawnChargeStartFX()
@@ -100,5 +109,6 @@ namespace BossFSM
             if (routine != null) ctx.StopCoroutine(routine);
             if (ctx.agent && !ctx.agent.enabled) ctx.agent.enabled = true;
         }
+
     }
 }

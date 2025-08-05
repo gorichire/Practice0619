@@ -66,23 +66,19 @@ namespace RPG.Combat
         }
         private void OnTriggerEnter(Collider other)
         {
-            if (other.GetComponent<Health>() != target) return;
-            if (target.IsDead()) return;
-            target.TakeDamage(instigator, damage);
+            Health victim = other.GetComponent<Health>();
+            if (victim == null || victim.IsDead()) return;
+
+            if (victim.gameObject == instigator) return;
+
+            if (hasTarget && victim != target) return;
+
+            victim.TakeDamage(instigator, damage);
 
             speed = 0;
-
             onHit.Invoke();
-
-            if (hitEffect != null)
-            {
-                Instantiate(hitEffect, GetAimLocation(), transform.rotation);
-            }
-            foreach (GameObject toDestroy in destroyOnHit)
-            {
-                Destroy(toDestroy);
-            }
-
+            if (hitEffect) Instantiate(hitEffect, GetAimLocation(), transform.rotation);
+            foreach (var go in destroyOnHit) Destroy(go);
             Destroy(gameObject, lifeAfterImpact);
         }
 

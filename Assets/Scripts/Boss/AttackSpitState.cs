@@ -8,26 +8,44 @@ namespace BossFSM
         Coroutine routine;
         public AttackSpitState(BossContext c) : base(c) { }
 
+
         public override void Enter()
         {
-            // 쿨다운 초기화
             ctx.ResetGlobal();
             ctx.ResetSpit();
 
-            // 추적 중지
             if (ctx.agent) { ctx.agent.isStopped = true; ctx.agent.ResetPath(); }
 
-            // 조준(머리 방향)
             ctx.FacePlayerFlat();
 
             routine = ctx.StartCoroutine(Seq());
         }
         IEnumerator Seq()
         {
-            float aimTime = 0.35f;
-            yield return new WaitForSeconds(aimTime);
-
-            SpawnSpitAoE();   // ← 이것만
+            GameObject prepFx = null;
+            if (ctx.spitPrepVFX)
+                prepFx = Object.Instantiate(ctx.spitPrepVFX,
+                                            ctx.rigCtrl ? ctx.rigCtrl.mouth.position : ctx.transform.position,
+                                            Quaternion.identity,
+                                            ctx.transform);
+            float t = 0f;
+            while (t < ctx.spitPrepTime)
+            {
+                ctx.FacePlayerFlat();
+                t += Time.deltaTime;
+                yield return null;
+            }
+            GameObject prepFx2 = null;
+            if (ctx.spitPrepVFX2)
+            {
+                Transform m = ctx.rigCtrl ? ctx.rigCtrl.mouth : ctx.transform;
+                Quaternion rot = m.rotation * Quaternion.Euler(0f, 180f, 0f);
+                prepFx2 = Object.Instantiate(ctx.spitPrepVFX2,
+                                             m.position,
+                                             rot,
+                                             m);
+            }
+            SpawnSpitAoE();
 
             yield return new WaitForSeconds(0.4f);
             ctx.rigCtrl?.ResetAfterAttack();
@@ -39,9 +57,7 @@ namespace BossFSM
         {
             if (!ctx.spitAoEPrefab || !ctx.player) return;
 
-            // 플레이어 위치 (영역 밖이면 경계 클램프)
             Vector3 target = ctx.GetClampedPlayerPoint();
-            // 지면 높이 Raycast
             if (Physics.Raycast(target + Vector3.up * 5f,
                                 Vector3.down,
                                 out RaycastHit hit,
@@ -55,8 +71,13 @@ namespace BossFSM
                 target.y = ctx.transform.position.y;
 
             var aoe = Object.Instantiate(ctx.spitAoEPrefab, target, Quaternion.identity);
-            // 수명 자동 정리(예: 5초)
-            Object.Destroy(aoe, 5f);
+
+            if (aoe.TryGetComponent(out SpitAoE spit))
+            {
+                spit.tickDamage = 10f;        
+                spit.instigator = ctx.gameObject;
+            }
+            Object.Destroy(aoe, 7f);
         }
         public override void Exit()
         {

@@ -3,6 +3,7 @@ using Cinemachine;
 using RPG.Combat;
 using RPG.Attributes;
 using RPG.Core;
+using RPG.UI;
 
 public class BowHandler : MonoBehaviour, IAction
 {
@@ -16,9 +17,11 @@ public class BowHandler : MonoBehaviour, IAction
     [SerializeField] string bowTag = "Bow";
     [SerializeField] Transform arrowSpawn;
 
-    [SerializeField] LayerMask aimMask = ~0;   // 맞춰야 할 레이어(Env, Enemy 등)
-    [SerializeField] float minAimDistance = 1.0f;   // 너무 가까운 히트 무시
+    [SerializeField] LayerMask aimMask = ~0;
+    [SerializeField] float minAimDistance = 1.0f;
     [SerializeField] bool ignoreSelf = true;
+
+    [SerializeField] float turnSpeed = 12f;
 
     Fighter fighter;
     Animator anim;
@@ -27,6 +30,10 @@ public class BowHandler : MonoBehaviour, IAction
     float fovVel;
     bool fullyDrawn;
     Coroutine fovRoutine;
+    CrosshairController xhair;
+
+    bool prevCursorVisible;
+    CursorLockMode prevLock;
     public bool IsAiming => isHolding;
 
     void Awake()
@@ -34,6 +41,7 @@ public class BowHandler : MonoBehaviour, IAction
         fighter = GetComponent<Fighter>();
         anim = GetComponent<Animator>();
         scheduler = GetComponent<ActionSchduler>();
+        xhair = FindObjectOfType<CrosshairController>();
     }
 
     public void Tick()
@@ -48,6 +56,7 @@ public class BowHandler : MonoBehaviour, IAction
             if (fullyDrawn) Fire(); 
             else CancelEarly();
         }
+        if (isHolding) AlignToCamera();
     }
     void BeginHold()
     {
@@ -56,11 +65,18 @@ public class BowHandler : MonoBehaviour, IAction
         isHolding = true;
         fullyDrawn = false;
 
+        prevCursorVisible = Cursor.visible;      // 상태 백업
+        prevLock = Cursor.lockState;
+
+        Cursor.visible = false;               // 커서 숨김
+        Cursor.lockState = CursorLockMode.Locked;
+
         anim.ResetTrigger("bowShoot");
         anim.ResetTrigger("bowCancel");
 
         anim.SetTrigger("bowDraw");
         StartFOV(aimFOV);
+        xhair?.SetAiming(true);
     }
 
     void CancelEarly()                  
@@ -114,7 +130,6 @@ public class BowHandler : MonoBehaviour, IAction
         p.SetTarget(null, gameObject, fighter.CalculateAttackDamage());
     }
 
-    /* ---------------- 조준 해제 ---------------- */
     void CancelHold()
     {
         if (!isHolding) return;
@@ -123,6 +138,11 @@ public class BowHandler : MonoBehaviour, IAction
 
         anim.SetBool("bowHold", false);
         StartFOV(normalFOV);
+
+        Cursor.visible = prevCursorVisible;
+        Cursor.lockState = prevLock;
+
+        xhair?.SetAiming(false);
     }
     public void OnDrawCheckpoint()
     {
@@ -156,5 +176,16 @@ public class BowHandler : MonoBehaviour, IAction
     {
         if (fovRoutine != null) StopCoroutine(fovRoutine);
         fovRoutine = StartCoroutine(LerpFOV(target));
+    }
+    void AlignToCamera()
+    {
+        Vector3 fwd = Camera.main.transform.forward;
+        fwd.y = 0f;                 
+        if (fwd.sqrMagnitude < 0.001f) return;
+
+        Quaternion target = Quaternion.LookRotation(fwd);
+        transform.rotation = Quaternion.Lerp(transform.rotation,
+                                             target,
+                                             Time.deltaTime * turnSpeed);
     }
 }

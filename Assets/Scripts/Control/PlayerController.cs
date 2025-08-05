@@ -44,6 +44,11 @@ namespace RPG.Control
         }
         private void Update()
         {
+            if (health.IsDead())
+            {
+                SetCursor(CursorType.None);
+                return;
+            }
             bow?.Tick();
             bool aiming = bow && bow.IsAiming;
             if (Input.GetKeyDown(KeyCode.LeftShift))
@@ -54,11 +59,7 @@ namespace RPG.Control
             if (dodge.IsDodging()) return;
 
             bool pointerOverUI = InteractWithUI();
-            if (health.IsDead())
-            {
-                SetCursor(CursorType.None);
-                return;
-            }
+
             var playerCombat = GetComponent<PlayerCombat>();
 
             if (!aiming && Input.GetMouseButtonDown(0))

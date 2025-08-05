@@ -1,70 +1,69 @@
 using UnityEngine;
 using System.Collections;
+using RPG.Attributes;
 
-public class SpitAoE : MonoBehaviour
+namespace BossFSM
 {
-    public float enableDelay = 1f;
-    public float activeDuration = 0.5f; // 충돌 허용 시간
-    public float damage = 20f;
-    public LayerMask playerMask;
-    SphereCollider col;
-    bool damageDone;
-
-    void Awake()
+    [RequireComponent(typeof(SphereCollider))]
+    public class SpitAoE : MonoBehaviour
     {
-        col = GetComponent<SphereCollider>();
-        col.enabled = false;
-    }
+        [Header("Timing")]
+        public float enableDelay = 1f;
+        public float activeDuration = 7f;
+        public float tickInterval = 0.5f;
+        [Header("Damage")]
+        public float tickDamage = 10f;
+        public LayerMask playerMask;
+        [HideInInspector] public GameObject instigator;
+        SphereCollider col;
 
-    void OnEnable()
-    {
-        StartCoroutine(Run());
-    }
-
-    IEnumerator Run()
-    {
-        yield return new WaitForSeconds(enableDelay);
-        col.enabled = true;
-
-        // 이미 안에 플레이어가 서있으면 바로 판정
-        CheckOverlapOnce();
-
-        yield return new WaitForSeconds(activeDuration);
-        col.enabled = false; // 비활성 후 잔류 VFX는 계속
-    }
-
-    void OnTriggerEnter(Collider other)
-    {
-        if (damageDone) return;
-        if (((1 << other.gameObject.layer) & playerMask) != 0)
+        void Awake()
         {
-            ApplyDamage(other.gameObject);
+            col = GetComponent<SphereCollider>();
         }
-    }
 
-    void CheckOverlapOnce()
-    {
-        if (damageDone) return;
-        Collider[] hits = Physics.OverlapSphere(transform.position, col.radius, playerMask);
-        foreach (var h in hits)
+        void OnEnable() => StartCoroutine(TickRoutine());
+
+        IEnumerator TickRoutine()
         {
-            ApplyDamage(h.gameObject);
-            break;
-        }
-    }
+            // 1 초 대기 후 본격 작동
+            yield return new WaitForSeconds(enableDelay);
 
-    void ApplyDamage(GameObject player)
-    {
-        damageDone = true;
-        // TODO: player.GetComponent<PlayerHealth>()?.TakeDamage(damage);
-    }
+            float elapsed = 0f;
+            while (elapsed < activeDuration)
+            {
+                ApplyTickDamage();
+                yield return new WaitForSeconds(tickInterval);
+                elapsed += tickInterval;
+            }
+
+            // 남은 VFX는 그대로 두고 충돌만 끔
+            col.enabled = false;
+        }
+
+        void ApplyTickDamage()
+        {
+            // OverlapSphere는 컬라이더 on/off와 무관하게 반경을 기준으로 검색
+            Collider[] hits = Physics.OverlapSphere(transform.position,
+                                                    col.radius,
+                                                    playerMask,
+                                                    QueryTriggerInteraction.Ignore);
+
+            foreach (var h in hits)
+            {
+                var hp = h.GetComponent<Health>();
+                if (hp && !hp.IsDead())
+                    hp.TakeDamage(instigator ? instigator : gameObject, tickDamage);
+            }
+        }
 
 #if UNITY_EDITOR
-    void OnDrawGizmosSelected()
-    {
-        if (!col) col = GetComponent<SphereCollider>();
-        Gizmos.color = new Color(0f, 1f, 0f, 0.25f);
-        Gizmos.DrawSphere(transform.position, col ? col.radius : 1f);
-    }
+        void OnDrawGizmosSelected()
+        {
+            if (!col) col = GetComponent<SphereCollider>();
+            Gizmos.color = new Color(0f, 1f, 0f, .25f);
+            Gizmos.DrawSphere(transform.position, col ? col.radius : 1f);
+        }
 #endif
+    }
 }

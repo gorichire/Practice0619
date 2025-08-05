@@ -752,7 +752,7 @@ MonoBehaviour:
   minChargeDist: 8
   maxChargeDist: 18
   chargeCD: 6
-  globalAttackCD: 2
+  globalAttackCD: 5
   tCharge: 0
   tGlobal: 0
   chargeStartEffectPrefab: {fileID: 4221804916360069353, guid: 5163df21537225440b3022e9c94f2568,
@@ -769,6 +769,14 @@ MonoBehaviour:
     m_Bits: 128
   chargeDamage: 30
   chargeHitRadius: 2
+  chargePrepTime: 2
+  spitPrepTime: 2
+  chargePrepVFX: {fileID: 1773164408168279790, guid: 0645b8913e66c434896dd4d5d3a6b6d3,
+    type: 3}
+  spitPrepVFX: {fileID: 7043481486862179857, guid: f98f86ebbd7fad243912a7b06dec028a,
+    type: 3}
+  spitPrepVFX2: {fileID: 7348648344570165868, guid: a3542309c3434054199eb9f9358c593a,
+    type: 3}
   idleBaseline: 0.3
   moveSpeed: 4
 --- !u!114 &8732797162793085744
@@ -905,6 +913,8 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   canFlinch: 0
+  knockbackDistance: 1.2
+  knockbackSpeed: 6
 --- !u!114 &3634312162983702150
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2172,6 +2182,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ConstrainProportionsScale
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6010424521439672709, guid: 1957cb7ed6af8f344bb859bc9ae353b8,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 8209308997661389707, guid: 1957cb7ed6af8f344bb859bc9ae353b8,
         type: 3}
