@@ -173,11 +173,11 @@ GameObject:
   - component: {fileID: 3088731710394889321}
   - component: {fileID: 676198216905712645}
   - component: {fileID: 7612590915230417127}
+  - component: {fileID: 7798818833787307731}
   - component: {fileID: 6196763739105612835}
   - component: {fileID: 9148816871259537090}
   - component: {fileID: 7905343411224615042}
   - component: {fileID: 7637835951512558161}
-  - component: {fileID: 7798818833787307731}
   - component: {fileID: -8686057199639094229}
   - component: {fileID: -8754190963456980492}
   - component: {fileID: 8868446015020076347}
@@ -290,6 +290,29 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!136 &7798818833787307731
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5209447563872160195}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.3
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!114 &6196763739105612835
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -326,6 +349,7 @@ MonoBehaviour:
   leftHandTransform: {fileID: 0}
   defaultWeapon: {fileID: 0}
   scabbardSword: {fileID: 0}
+  backBow: {fileID: 0}
 --- !u!114 &7905343411224615042
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -396,29 +420,6 @@ MonoBehaviour:
   canFlinch: 0
   knockbackDistance: 3
   knockbackSpeed: 3
---- !u!136 &7798818833787307731
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5209447563872160195}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.3
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 1, z: 0}
 --- !u!114 &-8686057199639094229
 MonoBehaviour:
   m_ObjectHideFlags: 0

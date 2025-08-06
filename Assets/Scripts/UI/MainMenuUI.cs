@@ -46,7 +46,7 @@ public class MainMenuUI : MonoBehaviour
     void OnStart()
     {
         // 실제 게임 씬 이름으로 변경
-        SceneManager.LoadScene("Sandbox");
+        SceneManager.LoadScene("Intro");
     }
 
     void OnOptions()

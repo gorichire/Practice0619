@@ -4966,8 +4966,18 @@ PrefabInstance:
     - {fileID: 1804940905057412566, guid: 86c1a75b3e8d50e47b252ec8dce22d0c, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6324462860196734433, guid: 86c1a75b3e8d50e47b252ec8dce22d0c,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1578677903}
   m_SourcePrefab: {fileID: 100100000, guid: 86c1a75b3e8d50e47b252ec8dce22d0c, type: 3}
+--- !u!1 &719093875 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6324462860196734433, guid: 86c1a75b3e8d50e47b252ec8dce22d0c,
+    type: 3}
+  m_PrefabInstance: {fileID: 719093874}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &721683638
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12069,6 +12079,19 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 719093874}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1578677903
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 719093875}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1b0def986a56d34982ddb70eed28f88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uniqueIdentifier: 58df99bf-bd82-43ab-9b7e-9f5e0fda0f2b
 --- !u!4 &1589485548 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 405024, guid: 4dc09de7863629c4b89bf12e0775d39c,
@@ -16086,7 +16109,7 @@ PrefabInstance:
     - target: {fileID: 6177965321861536013, guid: 0dd47f19c7c3eca4bbb9486ed6a2b55c,
         type: 3}
       propertyPath: field of view
-      value: 60
+      value: 60.000004
       objectReference: {fileID: 0}
     - target: {fileID: 6177965321861536013, guid: 0dd47f19c7c3eca4bbb9486ed6a2b55c,
         type: 3}
@@ -16401,7 +16424,7 @@ PrefabInstance:
     - target: {fileID: 560042259023996544, guid: ab00e5c0108542c46bceee09d09a286e,
         type: 3}
       propertyPath: sceneToLoad
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 560042259023996544, guid: ab00e5c0108542c46bceee09d09a286e,
         type: 3}

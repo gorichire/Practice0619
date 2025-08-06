@@ -385,13 +385,18 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 560042259023996544, guid: ab00e5c0108542c46bceee09d09a286e,
         type: 3}
+      propertyPath: fadeInTime
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 560042259023996544, guid: ab00e5c0108542c46bceee09d09a286e,
+        type: 3}
       propertyPath: fadeOutTime
       value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 560042259023996544, guid: ab00e5c0108542c46bceee09d09a286e,
         type: 3}
       propertyPath: sceneToLoad
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 560042259023996544, guid: ab00e5c0108542c46bceee09d09a286e,
         type: 3}
@@ -2911,13 +2916,18 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 560042259023996544, guid: ab00e5c0108542c46bceee09d09a286e,
         type: 3}
+      propertyPath: fadeInTime
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 560042259023996544, guid: ab00e5c0108542c46bceee09d09a286e,
+        type: 3}
       propertyPath: destination
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 560042259023996544, guid: ab00e5c0108542c46bceee09d09a286e,
         type: 3}
       propertyPath: sceneToLoad
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4733746296515176385, guid: ab00e5c0108542c46bceee09d09a286e,
         type: 3}
@@ -3100,7 +3110,7 @@ PrefabInstance:
     - target: {fileID: 6177965321861536013, guid: 0dd47f19c7c3eca4bbb9486ed6a2b55c,
         type: 3}
       propertyPath: field of view
-      value: 60
+      value: 60.000004
       objectReference: {fileID: 0}
     - target: {fileID: 7086541692517154742, guid: 0dd47f19c7c3eca4bbb9486ed6a2b55c,
         type: 3}
