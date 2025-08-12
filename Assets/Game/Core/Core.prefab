@@ -171,6 +171,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   persistentObjectPrefeb: {fileID: 3442869318324480379, guid: 82cac2a134c418d4098cef8a20e3c66e,
     type: 3}
+  faderPrefab: {fileID: 2538724115856806117, guid: 099c272aa590e6249b02281c30647ae8,
+    type: 3}
 --- !u!1001 &3496359344874845090
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -499,8 +501,63 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2538724115856806117, guid: 099c272aa590e6249b02281c30647ae8,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4398282727875983603}
   m_SourcePrefab: {fileID: 100100000, guid: 099c272aa590e6249b02281c30647ae8, type: 3}
+--- !u!1 &7086541692517154742 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2538724115856806117, guid: 099c272aa590e6249b02281c30647ae8,
+    type: 3}
+  m_PrefabInstance: {fileID: 4711653883928522579}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4398282727875983603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7086541692517154742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e52de21a22b6dd44c9cc19f810c65059, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Events:
+    m_Signals:
+    - {fileID: 11400000, guid: b7cc197225ad18941a15e70975f09f1f, type: 2}
+    - {fileID: 11400000, guid: a65c1d0e47fb33442943a18019b4158f, type: 2}
+    m_Events:
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 0}
+          m_TargetAssemblyTypeName: TimelineFaderBridge, Assembly-CSharp
+          m_MethodName: FadeOut05
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 0}
+          m_TargetAssemblyTypeName: TimelineFaderBridge, Assembly-CSharp
+          m_MethodName: FadeIn05
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!224 &8314215833734561537 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3603213397023985746, guid: 099c272aa590e6249b02281c30647ae8,
@@ -702,7 +759,7 @@ PrefabInstance:
     - target: {fileID: 4551494728640116186, guid: 56805043be65495408977092c613d6d0,
         type: 3}
       propertyPath: field of view
-      value: 60
+      value: 60.000004
       objectReference: {fileID: 0}
     - target: {fileID: 5199467479021394700, guid: 56805043be65495408977092c613d6d0,
         type: 3}

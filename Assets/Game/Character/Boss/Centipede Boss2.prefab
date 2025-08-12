@@ -665,6 +665,7 @@ GameObject:
   - component: {fileID: 123131712722634874}
   - component: {fileID: 4134064257142356169}
   - component: {fileID: 1461774033285834448}
+  - component: {fileID: 2241941138149462242}
   - component: {fileID: 2524909967805280180}
   m_Layer: 0
   m_Name: Centipede Boss2
@@ -689,6 +690,7 @@ Transform:
   - {fileID: 5428943133723495476}
   - {fileID: 3628690658656189762}
   - {fileID: 6387313322644512104}
+  - {fileID: 8364768560967139856}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &3059893003641276211
@@ -981,6 +983,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uniqueIdentifier: 
+--- !u!114 &2241941138149462242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2870611515679791646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8df1d6a95200654cb0f90a0ef42327b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  director: {fileID: 0}
+  ctx: {fileID: 8985849472067637686}
+  bossAnimator: {fileID: 3059893003641276211}
+  agent: {fileID: 8701639924490080986}
+  scriptsToDisable: []
+  playerRoot: {fileID: 0}
+  bossRoot: {fileID: 2870611515679791646}
+  fracturedRoot: {fileID: 2870611515679791646}
 --- !u!114 &2524909967805280180
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1350,6 +1372,152 @@ MonoBehaviour:
     m_DampPosition: 0
     m_DampRotation: 0
     m_MaintainAim: 1
+--- !u!1 &5329744098859235560
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8364768560967139856}
+  - component: {fileID: 7006441218026794909}
+  - component: {fileID: 6732124470632926198}
+  m_Layer: 0
+  m_Name: BossDirector
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8364768560967139856
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5329744098859235560}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.7, y: -3, z: 1.8}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5414837900714579813}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!320 &7006441218026794909
+PlayableDirector:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5329744098859235560}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_PlayableAsset: {fileID: 11400000, guid: a389bf6458076574fa4cca2985e13207, type: 2}
+  m_InitialState: 0
+  m_WrapMode: 2
+  m_DirectorUpdateMode: 1
+  m_InitialTime: 0
+  m_SceneBindings:
+  - key: {fileID: 681980405170894796, guid: a342cc0b80d0ccd45b9365206edfda0d, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: -8677731428436049435, guid: a342cc0b80d0ccd45b9365206edfda0d, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: -3779837799866051269, guid: 854a87313c9e28140ad27539a1b8b379, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: -7651984480221958949, guid: 854a87313c9e28140ad27539a1b8b379, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: -8668693869751378596, guid: 854a87313c9e28140ad27539a1b8b379, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: -3892901821765656485, guid: 854a87313c9e28140ad27539a1b8b379, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: 3343055124123859042, guid: 854a87313c9e28140ad27539a1b8b379, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: 3919444835864800972, guid: 854a87313c9e28140ad27539a1b8b379, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: -2646502762434086996, guid: 854a87313c9e28140ad27539a1b8b379, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: -2658950362999208455, guid: 854a87313c9e28140ad27539a1b8b379, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: 8216011667716351528, guid: 854a87313c9e28140ad27539a1b8b379, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: 6649345262345556426, guid: 854a87313c9e28140ad27539a1b8b379, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: 3317922060085153966, guid: a389bf6458076574fa4cca2985e13207, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: -4992880880682169263, guid: a389bf6458076574fa4cca2985e13207, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: -3863269185829715163, guid: a389bf6458076574fa4cca2985e13207, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: -4751834570335107796, guid: a389bf6458076574fa4cca2985e13207, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: -3880205004067069774, guid: a389bf6458076574fa4cca2985e13207, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: -1082235101027888907, guid: a389bf6458076574fa4cca2985e13207, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: 4821668499890673497, guid: a389bf6458076574fa4cca2985e13207, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: 6270756921894938670, guid: a389bf6458076574fa4cca2985e13207, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: 2532838899170727023, guid: a389bf6458076574fa4cca2985e13207, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: -2672259145639587939, guid: a389bf6458076574fa4cca2985e13207, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: 1505664073088270754, guid: a389bf6458076574fa4cca2985e13207, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: -8953386067768595931, guid: a389bf6458076574fa4cca2985e13207, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: 3752309853215307154, guid: a389bf6458076574fa4cca2985e13207, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: -1662927225228461876, guid: a389bf6458076574fa4cca2985e13207, type: 2}
+    value: {fileID: 6732124470632926198}
+  - key: {fileID: 3938710317556608696, guid: a389bf6458076574fa4cca2985e13207, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: -8865912227501876820, guid: a389bf6458076574fa4cca2985e13207, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: 3111732143818481461, guid: a389bf6458076574fa4cca2985e13207, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: 3777837495725411472, guid: a389bf6458076574fa4cca2985e13207, type: 2}
+    value: {fileID: 0}
+  m_ExposedReferences:
+    m_References:
+    - dba529eabe5e01f43bbd2889af5d8b53: {fileID: 0}
+    - 2c2d846c5e219c540abbe875591941d6: {fileID: 0}
+    - 59f880d663ea64b46969773ce9ef2178: {fileID: 0}
+--- !u!114 &6732124470632926198
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5329744098859235560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e52de21a22b6dd44c9cc19f810c65059, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Events:
+    m_Signals:
+    - {fileID: 11400000, guid: b7cc197225ad18941a15e70975f09f1f, type: 2}
+    - {fileID: 0}
+    m_Events:
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2241941138149462242}
+          m_TargetAssemblyTypeName: BossDeathTimelineStarter, Assembly-CSharp
+          m_MethodName: ShowPlayer
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls: []
 --- !u!1 &5818443825547550417
 GameObject:
   m_ObjectHideFlags: 0

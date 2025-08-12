@@ -20,6 +20,7 @@ namespace RPG.Control
         Animator animator;
         Mover mover;
 
+        public static bool isCutscenePlaying = false;
         [System.Serializable]
         struct CursorMapping
         {
@@ -44,6 +45,11 @@ namespace RPG.Control
         }
         private void Update()
         {
+            if (isCutscenePlaying)
+            {
+                SetCursor(CursorType.None);
+                return;
+            }
             if (health.IsDead())
             {
                 SetCursor(CursorType.None);

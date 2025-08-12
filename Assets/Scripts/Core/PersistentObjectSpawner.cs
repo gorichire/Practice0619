@@ -10,6 +10,7 @@ namespace RPG.Core
         [SerializeField] GameObject persistentObjectPrefeb;
 
         static bool hasSpawned = false;
+        public GameObject faderPrefab;
 
         private void Awake()
         {
@@ -18,6 +19,12 @@ namespace RPG.Core
             SpawnPersistentObjects();
 
             hasSpawned = true;
+
+            if (RPG.SceneManagement.Fader.Instance == null)
+            {
+                var go = Instantiate(faderPrefab);
+                DontDestroyOnLoad(go.transform.root.gameObject);
+            }
         }
 
         private void SpawnPersistentObjects()

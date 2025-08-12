@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+// RPG.Core.DestroyAfterEffect
 using UnityEngine;
 
 namespace RPG.Core
@@ -7,26 +6,27 @@ namespace RPG.Core
     public class DestroyAfterEffect : MonoBehaviour
     {
         [SerializeField] GameObject targetToDestroy = null;
+
         void Update()
         {
-            ParticleSystem[] particleSystems = GetComponentsInChildren<ParticleSystem>();
+            if (RPG.Control.PlayerController.isCutscenePlaying)
+            {
+                KillNow();
+                return;
+            }
 
+            ParticleSystem[] particleSystems = GetComponentsInChildren<ParticleSystem>();
             foreach (ParticleSystem ps in particleSystems)
             {
-                if (ps.IsAlive())
-                {
-                    return;
-                }
+                if (ps.IsAlive()) return;
             }
+            KillNow();
+        }
 
-            if (targetToDestroy != null)
-            {
-                Destroy(targetToDestroy);
-            }
-            else
-            {
-                Destroy(gameObject);
-            }
+        public void KillNow()
+        {
+            if (targetToDestroy != null) Destroy(targetToDestroy);
+            else Destroy(gameObject);
         }
     }
 }
