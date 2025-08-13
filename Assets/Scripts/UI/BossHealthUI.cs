@@ -4,29 +4,32 @@ using RPG.Attributes;
 public class BossHealthUI : MonoBehaviour
 {
     [SerializeField] HealthBar bossBarPrefab;
-    HealthBar bar;                       // 인스턴스 보관용
+    HealthBar bar;
 
     void Start()
     {
         var hud = FindObjectOfType<Canvas>();
-        var bar = Instantiate(bossBarPrefab, hud.transform);
+        bar = Instantiate(bossBarPrefab, hud.transform);   // 지역변수 제거, 필드에 대입
 
-        // ① 보스 HP 연결
         var bossHP = GetComponent<Health>();
         bar.SetHealth(bossHP);
 
-        // ② 처음엔 숨기기
-        if (bar.TryGetComponent(out CanvasGroup cg)) cg.alpha = 0;
+        // CanvasGroup 보장
+        var cg = bar.GetComponent<CanvasGroup>();
+        if (cg == null) cg = bar.gameObject.AddComponent<CanvasGroup>();
+        cg.alpha = 0;
     }
 
-
-    public void ShowBar(float _)        // TakeDamage(float)용
+    public void ShowBar(float _)
     {
-        bar.GetComponent<CanvasGroup>().alpha = 1;
+        if (!bar) return;
+        var cg = bar.GetComponent<CanvasGroup>();
+        if (cg) cg.alpha = 1;
     }
 
-    public void HideBar()               // OnDie()용
+    public void HideBar()
     {
+        if (!bar) return;
         Destroy(bar.gameObject);
     }
 }

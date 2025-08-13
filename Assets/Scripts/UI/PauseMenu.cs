@@ -37,15 +37,16 @@ namespace RPG.UI
 
         void Update()
         {
+            if (RPG.Control.PlayerController.isCutscenePlaying) return;
+
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-                if (optionsUI.activeSelf) CloseOptions();   // 옵션창 열려있으면 뒤로
+                if (optionsUI.activeSelf) CloseOptions();
                 else if (isPaused) Resume();
                 else Pause();
             }
         }
 
-        /* --------- Pause / Resume --------- */
         void Pause()
         {
             isPaused = true;
